@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Array;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -71,7 +72,7 @@ public class Login extends JFrame {
 		lblNombreDeUsuario.setBounds(39, 68, 159, 27);
 		panelCentro.add(lblNombreDeUsuario);
 		
-		JLabel lblContrasenia = new JLabel("Contrase\u00F1a:");
+		JLabel lblContrasenia = new JLabel("Contraseña:");
 		lblContrasenia.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		lblContrasenia.setBounds(39, 115, 159, 27);
 		panelCentro.add(lblContrasenia);
@@ -85,16 +86,16 @@ public class Login extends JFrame {
 		textContrasenia.setBounds(208, 115, 129, 25);
 		panelCentro.add(textContrasenia);
 		
-		JLabel lblIdentifqueseParaEmpezar = new JLabel("Identif\u00EDquese para empezar...");
+		JLabel lblIdentifqueseParaEmpezar = new JLabel("Identifíquese para empezar...");
 		lblIdentifqueseParaEmpezar.setForeground(Color.RED);
 		lblIdentifqueseParaEmpezar.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD | Font.ITALIC, 20));
 		lblIdentifqueseParaEmpezar.setBounds(39, 11, 298, 27);
 		panelCentro.add(lblIdentifqueseParaEmpezar);
 		
-		JCheckBox chckbxAlIniciarSesin = new JCheckBox("Al iniciar sesi\u00F3n acepta nuestros t\u00E9rminos y condiciones");
-		chckbxAlIniciarSesin.setFont(new Font("Sitka Text", Font.PLAIN, 10));
-		chckbxAlIniciarSesin.setBounds(39, 156, 298, 23);
-		panelCentro.add(chckbxAlIniciarSesin);
+		JCheckBox chckbxCondiciones = new JCheckBox("Al iniciar sesión acepta nuestros términos y condiciones");
+		chckbxCondiciones.setFont(new Font("Sitka Text", Font.PLAIN, 10));
+		chckbxCondiciones.setBounds(39, 156, 298, 23);
+		panelCentro.add(chckbxCondiciones);
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setBounds(248, 197, 89, 23);
@@ -112,6 +113,21 @@ public class Login extends JFrame {
 					JOptionPane.showMessageDialog(null, "Introduzca una contraseña");
 				}
 				else{
+					//Creamos un array donde vamos a meter el nombre
+					//lo recorremos buscando si coincide con el nombre introducido
+					//si no coincide lo guardamos
+					//si coincide saco un error por pantalla diciendo que ya se ha registrado
+//					String nombre[];
+//					for(String s: nombre){
+//						
+//					}
+					
+					//creamos un array donde vamos a meter la contraseña
+					//lo recorremos buscando si coincide con la contrasea introducida
+					//si no coincide la guadamos
+					//si coincide es que ya se ha registrado antes y saco un mensaje
+					
+					//INTRODUCIR UN FONDO DE VIAJES EN LA VENTANA DE LOGIN
 					
 				}
 				
