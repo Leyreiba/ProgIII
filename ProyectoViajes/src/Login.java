@@ -4,13 +4,22 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import BaseDeDatos.BD;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.Array;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -23,6 +32,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField textNombre;
 	private JPasswordField textContrasenia;
+	public BD bd;
 
 	/**
 	 * Launch the application.
@@ -39,11 +49,38 @@ public class Login extends JFrame {
 			}
 		});
 	}
+	
+	private void vaciar(){
+		textNombre.setText("");
+		textContrasenia.setText("");
+	}
 
 	/**
 	 * Create the frame.
 	 */
 	public Login() {
+		/**
+		 * Creamos un objeto BD. Mediante el Handler sabemos a qué fichero se mandarán los logs.
+		 * Al log le ponemos un formato normal y se lo actualizamos en el Handler. 
+		 * Por ultimo creamos el log y le añadimos el Handler
+		 */
+		bd= new BD();
+		Handler fileHandler = null;
+		try {
+			fileHandler= new FileHandler("./prueba.log", true);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		SimpleFormatter simpleformatter= new SimpleFormatter();
+		fileHandler.setFormatter(simpleformatter);
+		Logger logger= Logger.getLogger("Logger");
+		logger.addHandler(fileHandler);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -86,10 +123,12 @@ public class Login extends JFrame {
 		textContrasenia.setBounds(208, 115, 129, 25);
 		panelCentro.add(textContrasenia);
 		
+		
+		
 		JLabel lblIdentifqueseParaEmpezar = new JLabel("Identifíquese para empezar...");
-		lblIdentifqueseParaEmpezar.setForeground(Color.RED);
-		lblIdentifqueseParaEmpezar.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD | Font.ITALIC, 20));
-		lblIdentifqueseParaEmpezar.setBounds(39, 11, 298, 27);
+		lblIdentifqueseParaEmpezar.setForeground(new Color(255, 127, 80));
+		lblIdentifqueseParaEmpezar.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 23));
+		lblIdentifqueseParaEmpezar.setBounds(39, 11, 327, 27);
 		panelCentro.add(lblIdentifqueseParaEmpezar);
 		
 		JCheckBox chckbxCondiciones = new JCheckBox("Al iniciar sesión acepta nuestros términos y condiciones");
@@ -108,24 +147,43 @@ public class Login extends JFrame {
 				String c= textContrasenia.getText();
 				if(n.equals("")){
 					JOptionPane.showMessageDialog(null, "Introduzca un nombre");
+					logger.log(Level.WARNING, "Debe introducir un nombre");
 				}
 				else if(c.equals("")){
 					JOptionPane.showMessageDialog(null, "Introduzca una contraseña");
+					logger.log(Level.WARNING, "Debe introducir una contraseña");
+
+				}else if(!chckbxCondiciones.isSelected()){
+					JOptionPane.showMessageDialog(null, "Debe aceptar los términos y condiciones");
+					logger.log(Level.WARNING,  "Debe aceptar los términos y condiciones");
 				}
 				else{
-					//Creamos un array donde vamos a meter el nombre
-					//lo recorremos buscando si coincide con el nombre introducido
-					//si no coincide lo guardamos
-					//si coincide saco un error por pantalla diciendo que ya se ha registrado
-//					String nombre[];
-//					for(String s: nombre){
-//						
-//					}
+										
+					/**
+					 * llamamos al método existeusuario() de la clase BD y a registrar usuario
+					 * */
 					
-					//creamos un array donde vamos a meter la contraseña
-					//lo recorremos buscando si coincide con la contrasea introducida
-					//si no coincide la guadamos
-					//si coincide es que ya se ha registrado antes y saco un mensaje
+					int existe= bd.existeUsuario(n, c);
+					if(existe==0){
+						String e= JOptionPane.showInputDialog("¿Quiere registrarse? (S/N) ");
+						if(e.equalsIgnoreCase("S")){
+							bd.registrarUsuario(n, c);
+							JOptionPane.showMessageDialog(null, "REGISTRO COMPLETADO","CORRECTO", JOptionPane.INFORMATION_MESSAGE);
+							vaciar();
+							
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Vaya...Vuelve pronto");
+						}
+					}
+					else if(existe==1){
+						JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
+						logger.log(Level.SEVERE, "Esta contraseña no es correcta");
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "BIENVENIDO");
+						vaciar();
+					}
 					
 					//INTRODUCIR UN FONDO DE VIAJES EN LA VENTANA DE LOGIN
 					

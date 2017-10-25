@@ -30,7 +30,7 @@ public class BD {
 	{
 		try {
 			Class.forName("org.sqlite.JDBC");
-			con= DriverManager.getConnection("jdbc:sqlite:BaseDeDatos.db");
+			con= DriverManager.getConnection("jdbc:sqlite:baseDeDatos.db");
 			crearSentencia();
 		}catch(Exception e)
 		{
@@ -80,19 +80,19 @@ public class BD {
 	 * 			1 - Si sí existe el usuario pero la contraseña no es correcta
 	 * 			2 - Si el nombre de usuario es correcto y la contraseña también
 	 */
-	public int existeUsuario(String nom, String con){
+	public int existeUsuario(String n, String c){
 		
-		String query = "SELECT * FROM Usuario WHERE nombre='"+nom+"'";
+		String query = "SELECT * FROM usuario WHERE nombre='"+n+"'";
 		ResultSet rs = null;
 		int resul=0;
 		try {
 			rs = stmt.executeQuery(query);
 			if(rs.next()){ //Aquí estamos comprobando si la SELECT ha devuelto alguna fila
-				String n = rs.getString("nombre");
-				String c = rs.getString("contrasenia");
-				if(!n.equals(nom))
+				String nom = rs.getString("nombre");
+				String con = rs.getString("contrasenia");
+				if(!n.equals(n))
 					resul=0;
-				else if(!c.equals(con))
+				else if(!c.equals(c))
 					resul=1;
 				else
 					resul=2;
@@ -110,8 +110,8 @@ public class BD {
 			return resul;
 		}
 		
-		public void registrarUsuario(String nom, String con){
-			String query= "INSERT INTO Usuario(nombre,contrasenia) VALUES('"+nom+"','"+con+"')";
+		public void registrarUsuario(String n, String c){
+			String query= "INSERT INTO Usuario(nombre,contrasenia) VALUES('"+n+"','"+c+"')";
 			//No podemos REsultSet pq una INSERT no devuelve filas, solo inserta en la tabla
 			try {
 				stmt.executeUpdate(query);
