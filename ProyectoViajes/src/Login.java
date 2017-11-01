@@ -183,6 +183,8 @@ public class Login extends JFrame {
 					else{
 						JOptionPane.showMessageDialog(null, "BIENVENIDO");
 						vaciar();
+						VentanaPrincipal vp= new VentanaPrincipal();
+						vp.setVisible(true);
 					}
 					
 					//INTRODUCIR UN FONDO DE VIAJES EN LA VENTANA DE LOGIN
