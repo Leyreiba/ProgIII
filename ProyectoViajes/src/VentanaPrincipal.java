@@ -19,7 +19,6 @@ import com.toedter.calendar.JCalendar;
 public class VentanaPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textFieldPrecio;
 
 	/**
 	 * Launch the application.
@@ -72,14 +71,18 @@ public class VentanaPrincipal extends JFrame {
 		lblPrecio.setBounds(27, 178, 48, 24);
 		panel.add(lblPrecio);
 		
+		JLabel lblPrecioScroll = new JLabel(" ");
+		lblPrecioScroll.setBounds(78, 180, 69, 20);
+		panel.add(lblPrecioScroll);
+		
 		JSlider sliderPrecio = new JSlider();
 		sliderPrecio.setValue(0);
 		sliderPrecio.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				int v= sliderPrecio.getValue();
 				//hay que convertir el entero en un string para poder utilizar el settext()
-//				v= String.valueOf(v);
-//				textFieldPrecio.setText(v);
+				String s= String.valueOf(v);
+				lblPrecioScroll.setText(s);
 			}
 		});
 		sliderPrecio.setPaintLabels(true);
@@ -88,11 +91,6 @@ public class VentanaPrincipal extends JFrame {
 		sliderPrecio.setPaintTicks(true);
 		sliderPrecio.setBounds(127, 178, 226, 44);
 		panel.add(sliderPrecio);
-		
-		textFieldPrecio = new JTextField();
-		textFieldPrecio.setBounds(75, 180, 32, 20);
-		panel.add(textFieldPrecio);
-		textFieldPrecio.setColumns(10);
 		
 		String[] opciones1= {"origen1","origen2","origen3","origen4"};
 		JComboBox comboBoxOrigen = new JComboBox(opciones1);
@@ -115,5 +113,6 @@ public class VentanaPrincipal extends JFrame {
 		JCalendar calendar_1 = new JCalendar();
 		calendar_1.setBounds(223, 69, 191, 106);
 		panel.add(calendar_1);
+		
 	}
 }
