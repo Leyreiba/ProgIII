@@ -15,6 +15,8 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import com.toedter.calendar.JDayChooser;
 import com.toedter.calendar.JCalendar;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -102,7 +104,17 @@ public class VentanaPrincipal extends JFrame {
 		comboBoxDestino.setBounds(286, 13, 87, 20);
 		panel.add(comboBoxDestino);
 		
+		/**
+		 * Mediante este botón buscamos en la base de datos si tenemos viajes que coincidan
+		 * con todos los datos que el usuario haya introducido.
+		 * 1-Si exite un viaje con esos datos en la bd, en la siguiente ventana se visualizarán los vuelos disponibles referentes a esa info.
+		 * 2-Si no existe, en la siguiente ventana se mostrará un mensaje diciendo que no existe información con relación a los datos seleccionados.
+		 * */
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnBuscar.setBounds(180, 225, 89, 23);
 		panel.add(btnBuscar);
 		
