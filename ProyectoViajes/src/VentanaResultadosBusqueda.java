@@ -3,13 +3,16 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 
-public class ResultadosBusqueda extends JFrame {
+public class VentanaResultadosBusqueda extends JFrame {
 
 	private JPanel contentPane;
 
@@ -20,7 +23,7 @@ public class ResultadosBusqueda extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ResultadosBusqueda frame = new ResultadosBusqueda();
+					VentanaResultadosBusqueda frame = new VentanaResultadosBusqueda();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -32,7 +35,7 @@ public class ResultadosBusqueda extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ResultadosBusqueda() {
+	public VentanaResultadosBusqueda() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -101,6 +104,13 @@ public class ResultadosBusqueda extends JFrame {
 		panelCentro.add(lblFechaDest);
 		
 		JButton btnComprar = new JButton("Comprar");
+		btnComprar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaGestionCompras vp= new VentanaGestionCompras();
+				vp.setVisible(true);
+				dispose();
+			}
+		});
 		btnComprar.setBounds(228, 197, 108, 23);
 		panelCentro.add(btnComprar);
 		
@@ -109,9 +119,16 @@ public class ResultadosBusqueda extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				VentanaPrincipal vp= new VentanaPrincipal();
 				vp.setVisible(true);
+				dispose();
 			}
 		});
 		btnBuscarOtro.setBounds(64, 197, 124, 23);
 		panelCentro.add(btnBuscarOtro);
+		
+		
+		ControladorResultadosBusqueda crb= new ControladorResultadosBusqueda();
+		crb.CrearTabla();
+		
+        	
 	}
 }

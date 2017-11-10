@@ -32,7 +32,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField textNombre;
 	private JPasswordField textContrasenia;
-	public BD bd;
+	public static BD bd;
 
 	/**
 	 * Launch the application.
@@ -185,6 +185,7 @@ public class Login extends JFrame {
 						vaciar();
 						VentanaPrincipal vp= new VentanaPrincipal();
 						vp.setVisible(true);
+						dispose();
 					}
 					
 					//INTRODUCIR UN FONDO DE VIAJES EN LA VENTANA DE LOGIN

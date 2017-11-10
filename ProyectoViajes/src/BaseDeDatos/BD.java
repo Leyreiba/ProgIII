@@ -120,6 +120,33 @@ public class BD {
 				e.printStackTrace();
 			};
 		}
+		public Object[][] volcarDatosTabla() {
+            Object [][] datos = new Object[7][7];
+            //cogemos mediante un select los vuelos disponibles respecto a los datos que hayamos elegido
+            String query = "SELECT  ";
+            try {
+                            ResultSet rs = stmt.executeQuery(query);
+                            int i=0;
+                            while(rs.next()){
+                                            datos[i][0] = rs.getString("origen");
+                                            datos[i][1] = rs.getString("destino");
+                                            datos[i][2] = new Double(rs.getDouble("duracion"));
+                                            datos[i][3] = new Double(rs.getDouble("precio"));
+                                            datos[i][4] = new Double(rs.getDouble("hora"));
+                                            datos[i][5] = new Double(rs.getDouble("dia"));
+                                            datos[i][6] = rs.getString("mes");
+                                            datos[i][7] = new Double(rs.getDouble("año"));
+                                            i++;
+                            }
+                            rs.close();
+            } catch (SQLException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+            }
+            return datos;
+
+
+		}
 		
 		
 }
