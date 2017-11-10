@@ -123,7 +123,8 @@ public class BD {
 		public Object[][] volcarDatosTabla() {
             Object [][] datos = new Object[7][7];
             //cogemos mediante un select los vuelos disponibles respecto a los datos que hayamos elegido
-            String query = "SELECT  ";
+            //SELECT * FROM vuelos WHERE origen=opciones1.getOrigenSeleccionado AND destino=opciones2.getDestinoSeleccionado AND precio=precio.getValor AND dia,mes,año...
+            String query = "SELECT * FROM vuelos";
             try {
                             ResultSet rs = stmt.executeQuery(query);
                             int i=0;

@@ -1,24 +1,22 @@
+package Ventanas;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JSlider;
-import javax.swing.JList;
-import javax.swing.SwingConstants;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import com.toedter.calendar.JDayChooser;
-import com.toedter.calendar.JCalendar;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class VentanaPrincipal extends JFrame {
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import com.toedter.calendar.JCalendar;
+
+public class VentanaBusquedaH extends JFrame {
 
 	private JPanel contentPane;
 
@@ -29,7 +27,7 @@ public class VentanaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaPrincipal frame = new VentanaPrincipal();
+					VentanaBusquedaH frame = new VentanaBusquedaH();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +39,7 @@ public class VentanaPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaPrincipal() {
+	public VentanaBusquedaH() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 330);
 		contentPane = new JPanel();
@@ -53,19 +51,11 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
-		JLabel lblOrigen = new JLabel("Origen:");
-		lblOrigen.setBounds(22, 11, 43, 24);
-		panel.add(lblOrigen);
-		
-		JLabel lblDestino = new JLabel("Destino:");
-		lblDestino.setBounds(223, 11, 51, 24);
-		panel.add(lblDestino);
-		
-		JLabel lblFechaIda = new JLabel("Fecha ida");
-		lblFechaIda.setBounds(22, 46, 87, 24);
+		JLabel lblFechaIda = new JLabel("Fecha entrada");
+		lblFechaIda.setBounds(22, 46, 106, 24);
 		panel.add(lblFechaIda);
 		
-		JLabel lblFechaVuelta = new JLabel("Fecha vuelta");
+		JLabel lblFechaVuelta = new JLabel("Fecha Salida");
 		lblFechaVuelta.setBounds(223, 46, 87, 24);
 		panel.add(lblFechaVuelta);
 		
@@ -94,20 +84,17 @@ public class VentanaPrincipal extends JFrame {
 		sliderPrecio.setBounds(127, 178, 226, 44);
 		panel.add(sliderPrecio);
 		
-		String[] opciones1= {"origen1","origen2","origen3","origen4"};
-		JComboBox comboBoxOrigen = new JComboBox(opciones1);
-		comboBoxOrigen.setBounds(75, 13, 87, 20);
-		panel.add(comboBoxOrigen);
 		
-		String[] opciones2= {"destino1","destino2","destino3","destino4"};
-		JComboBox comboBoxDestino = new JComboBox(opciones2);
-		comboBoxDestino.setBounds(286, 13, 87, 20);
-		panel.add(comboBoxDestino);
-		
+		/**
+		 * Mediante este botón pasamos a la siguiente ventana donde se van a mostrar los hoteles accesibles en la ciudad que hayamos seleccionado.
+		 * La fecha de salida y entrada serán cuando el usuario quiera, por lo tanto en la base de datos se introducirán estas fechas cuando seleccionemos el hotel que queremos.
+		 * Así como los huespedes. (estos también serán tantos como el usuario quiera).
+		 * El precio indicado es por noche, por lo tanto se multiplicará dependiendo de las noches que pasemos.
+		 * */
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaResultadosBusqueda vp= new VentanaResultadosBusqueda();
+				VentanaResultadosH vp= new VentanaResultadosH();
 				vp.setVisible(true);
 				dispose();
 			}
@@ -115,13 +102,22 @@ public class VentanaPrincipal extends JFrame {
 		btnBuscar.setBounds(180, 225, 89, 23);
 		panel.add(btnBuscar);
 		
-		JCalendar calendarVuelta = new JCalendar();
-		calendarVuelta.setBounds(23, 69, 190, 106);
-		panel.add(calendarVuelta);
+		JCalendar calendarEntrada = new JCalendar();
+		calendarEntrada.setBounds(23, 69, 190, 106);
+		panel.add(calendarEntrada);
 		
-		JCalendar calendarIda = new JCalendar();
-		calendarIda.setBounds(223, 69, 191, 106);
-		panel.add(calendarIda);
+		JCalendar calendarSalida = new JCalendar();
+		calendarSalida.setBounds(223, 69, 191, 106);
+		panel.add(calendarSalida);
+		
+		JLabel lblNHuespedes = new JLabel("N\u00BA Huespedes:");
+		lblNHuespedes.setBounds(22, 16, 106, 20);
+		panel.add(lblNHuespedes);
+		
+		String[] NHuespedes = {"1","2","3","4","5"};
+		JComboBox comboBox = new JComboBox(NHuespedes);
+		comboBox.setBounds(143, 13, 48, 26);
+		panel.add(comboBox);
 		
 	}
 }

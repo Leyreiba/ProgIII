@@ -1,3 +1,4 @@
+package Login;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -6,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import BaseDeDatos.BD;
+import Ventanas.VentanaPrincipal;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
