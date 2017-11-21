@@ -34,7 +34,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField textNombre;
 	private JPasswordField textContrasenia;
-	public static BD bd;
+	//public static BD bd;
 
 	/**
 	 * Launch the application.
@@ -66,7 +66,8 @@ public class Login extends JFrame {
 		 * Al log le ponemos un formato normal y se lo actualizamos en el Handler. 
 		 * Por ultimo creamos el log y le añadimos el Handler
 		 */
-		bd= new BD();
+		//bd= new BD();
+		BD.conectar();
 		Handler fileHandler = null;
 		try {
 			fileHandler= new FileHandler("./prueba.log", true);
@@ -165,11 +166,11 @@ public class Login extends JFrame {
 					 * llamamos al método existeusuario() de la clase BD y a registrar usuario
 					 * */
 					
-					int existe= bd.existeUsuario(n, c);
+					int existe= BD.existeUsuario(n, c);
 					if(existe==0){
 						String e= JOptionPane.showInputDialog("¿Quiere registrarse? (S/N) ");
 						if(e.equalsIgnoreCase("S")){
-							bd.registrarUsuario(n, c);
+							BD.registrarUsuario(n, c);
 							JOptionPane.showMessageDialog(null, "REGISTRO COMPLETADO","CORRECTO", JOptionPane.INFORMATION_MESSAGE);
 							vaciar();
 							

@@ -98,7 +98,7 @@ public class VentanaGestionCompras extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaResultadosBusqueda vp= new VentanaResultadosBusqueda();
+				VentanaResultadosBusqueda vp= new VentanaResultadosBusqueda("","",0,"",0,0);
 				vp.setVisible(true);
 				dispose();
 			}

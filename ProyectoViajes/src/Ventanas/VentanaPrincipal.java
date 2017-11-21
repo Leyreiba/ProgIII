@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import com.toedter.calendar.JDayChooser;
+
+import BaseDeDatos.BD;
+
 import com.toedter.calendar.JCalendar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -22,6 +25,7 @@ import java.awt.event.ActionEvent;
 public class VentanaPrincipal extends JFrame {
 
 	private JPanel contentPane;
+	private JCalendar calendarIda, calendarVuelta;
 
 	/**
 	 * Launch the application.
@@ -95,20 +99,25 @@ public class VentanaPrincipal extends JFrame {
 		sliderPrecio.setBounds(127, 178, 226, 44);
 		panel.add(sliderPrecio);
 		
-		String[] opciones1= {"origen1","origen2","origen3","origen4"};
-		JComboBox comboBoxOrigen = new JComboBox(opciones1);
+		//String[] opciones1= {"origen1","origen2","origen3","origen4"};
+		//volcar de la base de datos todos los origenes que sean distintos. Para ello llamamos al metodo ya implementado en la clase BD
+		String[] opciones1 = BD.obtenerOrigenDestino('o');
+		JComboBox<String> comboBoxOrigen = new JComboBox<String>(opciones1);
 		comboBoxOrigen.setBounds(75, 13, 87, 20);
 		panel.add(comboBoxOrigen);
 		
-		String[] opciones2= {"destino1","destino2","destino3","destino4"};
-		JComboBox comboBoxDestino = new JComboBox(opciones2);
+		//String[] opciones2= {"destino1","destino2","destino3","destino4"};
+		//Llamamos al metodo ya implementado en la clase BD para volcar los destinos que podemos seleccionar
+		String[] opciones2 = BD.obtenerOrigenDestino('d');
+		JComboBox<String> comboBoxDestino = new JComboBox<String>(opciones2);
 		comboBoxDestino.setBounds(286, 13, 87, 20);
 		panel.add(comboBoxDestino);
 		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaResultadosBusqueda vp= new VentanaResultadosBusqueda();
+				//muestro en la ventanaResultadosBusqueda los datos elegidos en la ventana anterior
+				VentanaResultadosBusqueda vp= new VentanaResultadosBusqueda(comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(), calendarIda.getDayChooser().getDay(), String.valueOf(calendarIda.getMonthChooser().getMonth()), calendarIda.getYearChooser().getYear(),sliderPrecio.getValue());
 				vp.setVisible(true);
 				dispose();
 			}
@@ -116,13 +125,13 @@ public class VentanaPrincipal extends JFrame {
 		btnBuscar.setBounds(180, 225, 89, 23);
 		panel.add(btnBuscar);
 		
-		JCalendar calendarVuelta = new JCalendar();
-		calendarVuelta.setBounds(23, 69, 190, 106);
-		panel.add(calendarVuelta);
-		
-		JCalendar calendarIda = new JCalendar();
-		calendarIda.setBounds(223, 69, 191, 106);
+		calendarIda = new JCalendar();
+		calendarIda.setBounds(23, 69, 190, 106);
 		panel.add(calendarIda);
+		
+		calendarVuelta = new JCalendar();
+		calendarVuelta.setBounds(223, 69, 191, 106);
+		panel.add(calendarVuelta);
 		
 	}
 }
