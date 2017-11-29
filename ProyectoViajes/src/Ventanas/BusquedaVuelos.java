@@ -23,7 +23,7 @@ import com.toedter.calendar.JCalendar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VentanaPrincipal extends JFrame {
+public class BusquedaVuelos extends JFrame {
 
 	private JPanel contentPane;
 	private JCalendar calendarIda, calendarVuelta;
@@ -35,7 +35,7 @@ public class VentanaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaPrincipal frame = new VentanaPrincipal();
+					BusquedaVuelos frame = new BusquedaVuelos();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +47,7 @@ public class VentanaPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaPrincipal() {
+	public BusquedaVuelos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 425);
 		contentPane = new JPanel();
@@ -119,6 +119,10 @@ public class VentanaPrincipal extends JFrame {
 				
 			}
 		});
+		sliderPrecioMin.setPaintLabels(true);
+		sliderPrecioMin.setMaximum(200);
+		sliderPrecioMin.setMajorTickSpacing(200);
+		sliderPrecioMin.setPaintTicks(true);
 		sliderPrecioMax.setBounds(127, 229, 226, 53);
 		panel.add(sliderPrecioMax);
 		
@@ -141,11 +145,11 @@ public class VentanaPrincipal extends JFrame {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(sliderPrecioMin.getValue() > sliderPrecioMax.getValue()) {
-					JOptionPane.showMessageDialog(null,"El rango de precio maximo no puede ser menor que el precio minimo");
+					JOptionPane.showMessageDialog(null,"El precio mínimo no puede ser mayor que el precio máximo");
 				}
 				else {
-					//muestro en la ventanaResultadosBusqueda los datos elegidos en la ventana anterior
-					VentanaResultadosBusqueda vp= new VentanaResultadosBusqueda(comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(), calendarIda.getDayChooser().getDay(), String.valueOf(calendarIda.getMonthChooser().getMonth()), calendarIda.getYearChooser().getYear(),sliderPrecioMin.getValue());
+					//muestro en la ventanaResultadosBusqueda los datos elegidos en la ventana anterior. Origen, destino, dia, mes, anio, precio
+					ResultadosBusquedaVuelos vp= new ResultadosBusquedaVuelos(comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(), calendarIda.getDayChooser().getDay(), String.valueOf(calendarIda.getMonthChooser().getMonth()), calendarIda.getYearChooser().getYear(),sliderPrecioMin.getValue());
 					vp.setVisible(true);
 					dispose();
 				}

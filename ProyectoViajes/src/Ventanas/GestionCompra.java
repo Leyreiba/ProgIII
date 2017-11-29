@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VentanaGestionCompras extends JFrame {
+public class GestionCompra extends JFrame {
 
 	private JPanel contentPane;
 
@@ -21,7 +21,7 @@ public class VentanaGestionCompras extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaGestionCompras frame = new VentanaGestionCompras();
+					GestionCompra frame = new GestionCompra();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,7 +33,7 @@ public class VentanaGestionCompras extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaGestionCompras() {
+	public GestionCompra() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -76,7 +76,7 @@ public class VentanaGestionCompras extends JFrame {
 		JButton btnBuscar = new JButton("Buscar hotel");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaBusquedaH vp= new VentanaBusquedaH();
+				BusquedaHoteles vp= new BusquedaHoteles();
 				vp.setVisible(true);
 				dispose();
 			}
@@ -87,7 +87,7 @@ public class VentanaGestionCompras extends JFrame {
 		JButton btnFinalizar = new JButton("Finalizar Compra");
 		btnFinalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaFinCompra vp= new VentanaFinCompra();
+				FinCompra vp= new FinCompra();
 				vp.setVisible(true);
 				dispose();
 			}
@@ -98,7 +98,7 @@ public class VentanaGestionCompras extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaResultadosBusqueda vp= new VentanaResultadosBusqueda("","",0,"",0,0);
+				ResultadosBusquedaVuelos vp= new ResultadosBusquedaVuelos("","",0,"",0,0);
 				vp.setVisible(true);
 				dispose();
 			}

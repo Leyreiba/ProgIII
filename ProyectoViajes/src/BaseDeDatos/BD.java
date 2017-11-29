@@ -121,7 +121,7 @@ public class BD {
 				e.printStackTrace();
 			};
 		}
-		public static Object[][] volcarDatosTabla(String origen, String destino, int dia, String mes, int anio, int precio) {
+		public static Object[][] volcarDatosVuelos(String origen, String destino, int dia, String mes, int anio, int precio) {
             Object [][] datos = new Object[1000][8];
             //cogemos mediante un select los vuelos disponibles respecto a los datos que hayamos elegido
             //SELECT * FROM vuelos WHERE VentanaPrincipal.origen=opciones1.getOrigenSeleccionado AND VentanaPrincipal.destino=opciones2.getDestinoSeleccionado AND precio=precio.getValor AND dia,mes,año...
@@ -187,6 +187,39 @@ public class BD {
 				e.printStackTrace();
 			}
 			return opciones;
+		}
+		
+		
+		
+		
+		
+		public static Object[][] volcarDatosHoteles(int precio, String lugar) {
+            Object [][] datos = new Object[1000][3];
+            //cogemos mediante un select los vuelos disponibles respecto a los datos que hayamos elegido
+            //SELECT * FROM vuelos WHERE VentanaPrincipal.origen=opciones1.getOrigenSeleccionado AND VentanaPrincipal.destino=opciones2.getDestinoSeleccionado AND precio=precio.getValor AND dia,mes,año...
+            String query = "SELECT * FROM hoteles WHERE precio='"+precio+"' AND lugar='"+lugar+"'";
+            //System.out.println("dia origen: "+dia+"mes origen: "+mes+"año origen: "+anio);
+
+           
+            
+            try {
+                            ResultSet rs = stmt.executeQuery(query);
+                            int i=0;
+                            while(rs.next()){
+                            				
+                            				datos[i][0] = new Double(rs.getDouble("precio"));
+                                            datos[i][1] = rs.getString("lugar");                                            
+                                            datos[i][2] = rs.getString("nombre");
+                                            i++;
+                            }
+                            rs.close();
+            } catch (SQLException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+            }
+            return datos;
+
+
 		}
 		
 		

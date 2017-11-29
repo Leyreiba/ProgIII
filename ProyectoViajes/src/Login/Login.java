@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import BaseDeDatos.BD;
-import Ventanas.VentanaPrincipal;
+import Ventanas.BusquedaVuelos;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -186,7 +186,7 @@ public class Login extends JFrame {
 					else{
 						JOptionPane.showMessageDialog(null, "BIENVENIDO");
 						vaciar();
-						VentanaPrincipal vp= new VentanaPrincipal();
+						BusquedaVuelos vp= new BusquedaVuelos();
 						vp.setVisible(true);
 						dispose();
 					}

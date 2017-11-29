@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VentanaFinCompra extends JFrame {
+public class FinCompra extends JFrame {
 
 	private JPanel contentPane;
 
@@ -21,7 +21,7 @@ public class VentanaFinCompra extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaFinCompra frame = new VentanaFinCompra();
+					FinCompra frame = new FinCompra();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,7 +33,7 @@ public class VentanaFinCompra extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaFinCompra() {
+	public FinCompra() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -85,7 +85,7 @@ public class VentanaFinCompra extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaGestionCompras vp= new VentanaGestionCompras();
+				GestionCompra vp= new GestionCompra();
 				vp.setVisible(true);
 				dispose();
 			}

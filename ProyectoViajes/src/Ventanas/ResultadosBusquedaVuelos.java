@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 
-public class VentanaResultadosBusqueda extends JFrame {
+public class ResultadosBusquedaVuelos extends JFrame {
 
 	private JPanel contentPane;
 
@@ -26,7 +26,7 @@ public class VentanaResultadosBusqueda extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaResultadosBusqueda(String origen, String destino, int dia, String mes, int anio, int precio) {
+	public ResultadosBusquedaVuelos(String origen, String destino, int dia, String mes, int anio, int precio) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -47,14 +47,14 @@ public class VentanaResultadosBusqueda extends JFrame {
 		panelSur.add(btnComprar);
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaGestionCompras vp= new VentanaGestionCompras();
+				GestionCompra vp= new GestionCompra();
 				vp.setVisible(true);
 				dispose();
 			}
 		});
 		btnBuscarOtro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPrincipal vp= new VentanaPrincipal();
+				BusquedaVuelos vp= new BusquedaVuelos();
 				vp.setVisible(true);
 				dispose();
 			}
@@ -115,7 +115,7 @@ public class VentanaResultadosBusqueda extends JFrame {
 		 * en función de la select que hayamos hecho anteriormente introducidos unos datos en concreto
 		 * */
 		String nombresColumnas[] = {"ORIGEN","DESTINO","DURACION","PRECIO","HORA","DIA","MES","AÑO"}; //array con los titulos de cada columna
-		Object datos[][] = BD.volcarDatosTabla(origen, destino, dia, mes, anio,precio); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
+		Object datos[][] = BD.volcarDatosVuelos(origen, destino, dia, mes, anio,precio); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
 		JTable tablaSur = new JTable(datos,nombresColumnas); //metemos en una jtable estos arrays
 		panelTabla.setLayout(new BorderLayout());
 		panelTabla.add(tablaSur.getTableHeader(), BorderLayout.NORTH); 

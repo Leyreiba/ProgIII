@@ -16,7 +16,7 @@ import javax.swing.event.ChangeListener;
 
 import com.toedter.calendar.JCalendar;
 
-public class VentanaBusquedaH extends JFrame {
+public class BusquedaHoteles extends JFrame {
 
 	private JPanel contentPane;
 
@@ -27,7 +27,7 @@ public class VentanaBusquedaH extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaBusquedaH frame = new VentanaBusquedaH();
+					BusquedaHoteles frame = new BusquedaHoteles();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +39,7 @@ public class VentanaBusquedaH extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaBusquedaH() {
+	public BusquedaHoteles() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 330);
 		contentPane = new JPanel();
@@ -59,31 +59,63 @@ public class VentanaBusquedaH extends JFrame {
 		lblFechaVuelta.setBounds(223, 46, 87, 24);
 		panel.add(lblFechaVuelta);
 		
-		JLabel lblPrecio = new JLabel("Precio:");
-		lblPrecio.setBounds(27, 178, 48, 24);
-		panel.add(lblPrecio);
+		JLabel lblPrecioMin = new JLabel("Precio:");
+		lblPrecioMin.setBounds(27, 178, 48, 24);
+		panel.add(lblPrecioMin);
 		
-		JLabel lblPrecioScroll = new JLabel(" ");
-		lblPrecioScroll.setBounds(78, 180, 69, 20);
-		panel.add(lblPrecioScroll);
+		JLabel precioMin = new JLabel(" ");
+		precioMin.setBounds(78, 180, 69, 20);
+		panel.add(precioMin);
 		
-		JSlider sliderPrecio = new JSlider();
-		sliderPrecio.setValue(0);
-		sliderPrecio.addChangeListener(new ChangeListener() {
+		JSlider sliderPrecioMin = new JSlider();
+		sliderPrecioMin.setValue(0);
+		sliderPrecioMin.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
-				int v= sliderPrecio.getValue();
+				int v= sliderPrecioMin.getValue();
 				//hay que convertir el entero en un string para poder utilizar el settext()
 				String s= String.valueOf(v);
-				lblPrecioScroll.setText(s);
+				precioMin.setText(s);
 			}
 		});
-		sliderPrecio.setPaintLabels(true);
-		sliderPrecio.setMaximum(200);
-		sliderPrecio.setMajorTickSpacing(200);
-		sliderPrecio.setPaintTicks(true);
-		sliderPrecio.setBounds(127, 178, 226, 44);
-		panel.add(sliderPrecio);
+		sliderPrecioMin.setPaintLabels(true);
+		sliderPrecioMin.setMaximum(200);
+		sliderPrecioMin.setMajorTickSpacing(200);
+		sliderPrecioMin.setPaintTicks(true);
+		sliderPrecioMin.setBounds(127, 178, 226, 36);
+		panel.add(sliderPrecioMin);
 		
+
+		JLabel labelPrecioMax = new JLabel("Precio:");
+		labelPrecioMax.setBounds(27, 213, 48, 24);
+		panel.add(labelPrecioMax);
+		
+		JLabel precioMax = new JLabel(" ");
+		precioMax.setBounds(78, 215, 69, 20);
+		panel.add(precioMax);
+		
+		JSlider sliderPrecioMax = new JSlider();
+		sliderPrecioMax.setValue(0);
+		sliderPrecioMax.setPaintTicks(true);
+		sliderPrecioMax.setPaintLabels(true);
+		sliderPrecioMax.setMaximum(200);
+		sliderPrecioMax.setMajorTickSpacing(200);
+		sliderPrecioMax.setBounds(127, 215, 226, 36);
+		panel.add(sliderPrecioMax);
+		
+		
+		String[] NHuespedes = {"1","2","3","4","5"};
+		JComboBox comboBoxNumHuespedes = new JComboBox(NHuespedes);
+		comboBoxNumHuespedes.setBounds(143, 13, 48, 26);
+		panel.add(comboBoxNumHuespedes);
+		
+
+		JCalendar calendarEntrada = new JCalendar();
+		calendarEntrada.setBounds(23, 69, 190, 106);
+		panel.add(calendarEntrada);
+		
+		JCalendar calendarSalida = new JCalendar();
+		calendarSalida.setBounds(223, 69, 191, 106);
+		panel.add(calendarSalida);
 		
 		/**
 		 * Mediante este botón pasamos a la siguiente ventana donde se van a mostrar los hoteles accesibles en la ciudad que hayamos seleccionado.
@@ -94,30 +126,22 @@ public class VentanaBusquedaH extends JFrame {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaResultadosH vp= new VentanaResultadosH();
+				//precio, lugar, nombre
+				//aquí guaurdo los datos que he seleccionado en la ventana anterior(busquedaHoteles)
+				//quiero coger el destino obtenido en la ventana vuelos como lugar donde va a estar mi hotel
+				ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), comboBoxDestino.getSelectedItem().toString());
 				vp.setVisible(true);
 				dispose();
 			}
 		});
-		btnBuscar.setBounds(180, 225, 89, 23);
+		btnBuscar.setBounds(179, 249, 89, 23);
 		panel.add(btnBuscar);
 		
-		JCalendar calendarEntrada = new JCalendar();
-		calendarEntrada.setBounds(23, 69, 190, 106);
-		panel.add(calendarEntrada);
-		
-		JCalendar calendarSalida = new JCalendar();
-		calendarSalida.setBounds(223, 69, 191, 106);
-		panel.add(calendarSalida);
 		
 		JLabel lblNHuespedes = new JLabel("N\u00BA Huespedes:");
 		lblNHuespedes.setBounds(22, 16, 106, 20);
 		panel.add(lblNHuespedes);
 		
-		String[] NHuespedes = {"1","2","3","4","5"};
-		JComboBox comboBox = new JComboBox(NHuespedes);
-		comboBox.setBounds(143, 13, 48, 26);
-		panel.add(comboBox);
 		
 	}
 }
