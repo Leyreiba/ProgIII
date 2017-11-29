@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -48,7 +49,7 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	public VentanaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 330);
+		setBounds(100, 100, 450, 425);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -74,30 +75,53 @@ public class VentanaPrincipal extends JFrame {
 		lblFechaVuelta.setBounds(223, 46, 87, 24);
 		panel.add(lblFechaVuelta);
 		
-		JLabel lblPrecio = new JLabel("Precio:");
-		lblPrecio.setBounds(27, 178, 48, 24);
-		panel.add(lblPrecio);
+		JLabel lblPrecioMin = new JLabel("Precio minimo:");
+		lblPrecioMin.setBounds(22, 178, 59, 39);
+		panel.add(lblPrecioMin);
 		
-		JLabel lblPrecioScroll = new JLabel(" ");
-		lblPrecioScroll.setBounds(78, 180, 69, 20);
-		panel.add(lblPrecioScroll);
+		JLabel lblPrecioScrollMin = new JLabel(" ");
+		lblPrecioScrollMin.setBounds(78, 187, 69, 20);
+		panel.add(lblPrecioScrollMin);
+
+		JLabel lblPrecioMax = new JLabel("Precio maximo:");
+		lblPrecioMax.setBounds(22, 233, 48, 24);
+		panel.add(lblPrecioMax);
 		
-		JSlider sliderPrecio = new JSlider();
-		sliderPrecio.setValue(0);
-		sliderPrecio.addChangeListener(new ChangeListener() {
+		JLabel lblPrecioScrollMax = new JLabel(" ");
+		lblPrecioScrollMax.setBounds(78, 235, 69, 20);
+		panel.add(lblPrecioScrollMax);
+		
+		JSlider sliderPrecioMin = new JSlider();
+		sliderPrecioMin.setValue(0);
+		sliderPrecioMin.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
-				int v= sliderPrecio.getValue();
+				int v= sliderPrecioMin.getValue();
 				//hay que convertir el entero en un string para poder utilizar el settext()
 				String s= String.valueOf(v);
-				lblPrecioScroll.setText(s);
+				lblPrecioScrollMin.setText(s);
 			}
 		});
-		sliderPrecio.setPaintLabels(true);
-		sliderPrecio.setMaximum(200);
-		sliderPrecio.setMajorTickSpacing(200);
-		sliderPrecio.setPaintTicks(true);
-		sliderPrecio.setBounds(127, 178, 226, 44);
-		panel.add(sliderPrecio);
+		sliderPrecioMin.setPaintLabels(true);
+		sliderPrecioMin.setMaximum(200);
+		sliderPrecioMin.setMajorTickSpacing(200);
+		sliderPrecioMin.setPaintTicks(true);
+		sliderPrecioMin.setBounds(127, 178, 226, 53);
+		panel.add(sliderPrecioMin);
+		
+
+		JSlider sliderPrecioMax = new JSlider();
+		sliderPrecioMax.setValue(0);
+		sliderPrecioMax.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				int v = sliderPrecioMax.getValue();
+				String s = String.valueOf(v);
+				lblPrecioScrollMax.setText(s);
+				
+			}
+		});
+		sliderPrecioMax.setBounds(127, 229, 226, 53);
+		panel.add(sliderPrecioMax);
+		
 		
 		//String[] opciones1= {"origen1","origen2","origen3","origen4"};
 		//volcar de la base de datos todos los origenes que sean distintos. Para ello llamamos al metodo ya implementado en la clase BD
@@ -116,13 +140,18 @@ public class VentanaPrincipal extends JFrame {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//muestro en la ventanaResultadosBusqueda los datos elegidos en la ventana anterior
-				VentanaResultadosBusqueda vp= new VentanaResultadosBusqueda(comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(), calendarIda.getDayChooser().getDay(), String.valueOf(calendarIda.getMonthChooser().getMonth()), calendarIda.getYearChooser().getYear(),sliderPrecio.getValue());
-				vp.setVisible(true);
-				dispose();
+				if(sliderPrecioMin.getValue() > sliderPrecioMax.getValue()) {
+					JOptionPane.showMessageDialog(null,"El rango de precio maximo no puede ser menor que el precio minimo");
+				}
+				else {
+					//muestro en la ventanaResultadosBusqueda los datos elegidos en la ventana anterior
+					VentanaResultadosBusqueda vp= new VentanaResultadosBusqueda(comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(), calendarIda.getDayChooser().getDay(), String.valueOf(calendarIda.getMonthChooser().getMonth()), calendarIda.getYearChooser().getYear(),sliderPrecioMin.getValue());
+					vp.setVisible(true);
+					dispose();
+				}
 			}
 		});
-		btnBuscar.setBounds(180, 225, 89, 23);
+		btnBuscar.setBounds(127, 320, 89, 23);
 		panel.add(btnBuscar);
 		
 		calendarIda = new JCalendar();
