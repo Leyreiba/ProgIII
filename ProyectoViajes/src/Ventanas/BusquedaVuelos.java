@@ -75,20 +75,20 @@ public class BusquedaVuelos extends JFrame {
 		lblFechaVuelta.setBounds(223, 46, 87, 24);
 		panel.add(lblFechaVuelta);
 		
-		JLabel lblPrecioMin = new JLabel("Precio minimo:");
-		lblPrecioMin.setBounds(22, 178, 59, 39);
+		JLabel lblPrecioMin = new JLabel("Precio min:");
+		lblPrecioMin.setBounds(16, 178, 68, 39);
 		panel.add(lblPrecioMin);
 		
 		JLabel lblPrecioScrollMin = new JLabel(" ");
-		lblPrecioScrollMin.setBounds(78, 187, 69, 20);
+		lblPrecioScrollMin.setBounds(92, 187, 37, 20);
 		panel.add(lblPrecioScrollMin);
 
-		JLabel lblPrecioMax = new JLabel("Precio maximo:");
-		lblPrecioMax.setBounds(22, 233, 48, 24);
+		JLabel lblPrecioMax = new JLabel("Precio max:");
+		lblPrecioMax.setBounds(16, 233, 87, 24);
 		panel.add(lblPrecioMax);
 		
 		JLabel lblPrecioScrollMax = new JLabel(" ");
-		lblPrecioScrollMax.setBounds(78, 235, 69, 20);
+		lblPrecioScrollMax.setBounds(92, 235, 37, 20);
 		panel.add(lblPrecioScrollMax);
 		
 		JSlider sliderPrecioMin = new JSlider();
@@ -119,10 +119,10 @@ public class BusquedaVuelos extends JFrame {
 				
 			}
 		});
-		sliderPrecioMin.setPaintLabels(true);
-		sliderPrecioMin.setMaximum(200);
-		sliderPrecioMin.setMajorTickSpacing(200);
-		sliderPrecioMin.setPaintTicks(true);
+		sliderPrecioMax.setPaintLabels(true);
+		sliderPrecioMax.setMaximum(200);
+		sliderPrecioMax.setMajorTickSpacing(200);
+		sliderPrecioMax.setPaintTicks(true);
 		sliderPrecioMax.setBounds(127, 229, 226, 53);
 		panel.add(sliderPrecioMax);
 		

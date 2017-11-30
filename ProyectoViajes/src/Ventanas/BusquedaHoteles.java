@@ -129,6 +129,7 @@ public class BusquedaHoteles extends JFrame {
 				//precio, lugar, nombre
 				//aquí guaurdo los datos que he seleccionado en la ventana anterior(busquedaHoteles)
 				//quiero coger el destino obtenido en la ventana vuelos como lugar donde va a estar mi hotel
+				//¿Cómo cojo el valor del comboBox destino?
 				ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), comboBoxDestino.getSelectedItem().toString());
 				vp.setVisible(true);
 				dispose();

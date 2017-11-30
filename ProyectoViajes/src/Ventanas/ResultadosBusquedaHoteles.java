@@ -113,6 +113,7 @@ public class ResultadosBusquedaHoteles extends JFrame {
 
 
 	String nombresColumnas[] = {"PRECIO","LUGAR","NOMBRE"}; //array con los titulos de cada columna
+	//da error porque el combobox destino de la clase busquedaHoteles no está bien
 	Object datos[][] = BD.volcarDatosHoteles(precio, lugar); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
 	JTable tablaSur = new JTable(datos,nombresColumnas); //metemos en una jtable estos arrays
 //	panelTabla.setLayout(new BorderLayout());

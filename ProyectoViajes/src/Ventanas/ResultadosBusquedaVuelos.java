@@ -101,9 +101,11 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		JLabel lblDest = new JLabel(destino);
 		panelDatos.add(lblDest);
 		
-		//volcar el valor elegido para la fecha destino
-		JLabel lblFechaDest = new JLabel("New label");
+		//volcar el valor elegido para la fecha destino (respecto a los datos que hayamos introducido en el calendario de vuelta)
+		//¿cómo cojo los valores del calendarVuelta de la clase busqueda vuelos?
+		JLabel lblFechaDest = new JLabel(calendarVuelta.getDayChooser().getDay()+ "-" + String.valueOf(calendarVuelta.getMonthChooser().getMonth()) + " - " +calendarVuelta.getYearChooser().getYear());
 		panelDatos.add(lblFechaDest);
+
 		
 		JPanel panelTabla = new JPanel();
 		panelCentro.add(panelTabla);
