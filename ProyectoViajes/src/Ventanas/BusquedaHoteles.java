@@ -19,6 +19,8 @@ import com.toedter.calendar.JCalendar;
 public class BusquedaHoteles extends JFrame {
 
 	private JPanel contentPane;
+	private static String destino;
+
 
 	/**
 	 * Launch the application.
@@ -123,14 +125,16 @@ public class BusquedaHoteles extends JFrame {
 		 * Así como los huespedes. (estos también serán tantos como el usuario quiera).
 		 * El precio indicado es por noche, por lo tanto se multiplicará dependiendo de las noches que pasemos.
 		 * */
+		
+		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//precio, lugar, nombre
+				//resumen que sale en la siguiente  ventana en función de lo que hayamos seleccionado en la anterior
 				//aquí guaurdo los datos que he seleccionado en la ventana anterior(busquedaHoteles)
 				//quiero coger el destino obtenido en la ventana vuelos como lugar donde va a estar mi hotel
-				//¿Cómo cojo el valor del comboBox destino?
-				ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), comboBoxDestino.getSelectedItem().toString());
+				//hacer lo mismo q con el combobox de vuelos
+				ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), destino);
 				vp.setVisible(true);
 				dispose();
 			}
@@ -144,5 +148,11 @@ public class BusquedaHoteles extends JFrame {
 		panel.add(lblNHuespedes);
 		
 		
+	}
+	
+	//creamos un destino y le asginamos el valor del destino del combobox de vuelos
+	
+	public static void setDestino(String destino){
+		this.destino=destino;
 	}
 }

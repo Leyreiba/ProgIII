@@ -26,7 +26,7 @@ public class ResultadosBusquedaVuelos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ResultadosBusquedaVuelos(String origen, String destino, int dia, String mes, int anio, int precio) {
+	public ResultadosBusquedaVuelos(String origen, String destino, int dia, String mes, int anio, int precio, int diaVuelta, String mesVuelta, int anioVuelta) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -80,15 +80,7 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		JLabel lblOrig = new JLabel(origen);
 		panelDatos.add(lblOrig);
 		
-		
-//		//Hago este metodo para que los meses empiecen desde 1 y no desde la pos 0.(NO FUNCIONA PQ EL FOR RECORRE TODO HASTA DICIEMBRE, ASI QUE SIEMPRE SE MUESTRA DICIEMBRE)
-//        String[]meses={"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
-//        for(int pos=0;pos<12;pos++){
-//        	meses[pos]=meses[pos++]; 
-//        	mes=meses[pos];
-//        }
-//		      	
-        
+       
 		
 		//volcar el valor elegido para la fecha origen
 		JLabel lblFechaOrig = new JLabel(String.valueOf(dia)+ "-" + mes + " - " +String.valueOf(anio));
@@ -101,9 +93,10 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		JLabel lblDest = new JLabel(destino);
 		panelDatos.add(lblDest);
 		
+		
 		//volcar el valor elegido para la fecha destino (respecto a los datos que hayamos introducido en el calendario de vuelta)
-		//¿cómo cojo los valores del calendarVuelta de la clase busqueda vuelos?
-		JLabel lblFechaDest = new JLabel(calendarVuelta.getDayChooser().getDay()+ "-" + String.valueOf(calendarVuelta.getMonthChooser().getMonth()) + " - " +calendarVuelta.getYearChooser().getYear());
+		//quiero crear una opción que cuando le digamos que solo queremos vuelo de ida pponga a no visible estos datos de vuelta y el calendario de vuelta en la ventana anterior
+		JLabel lblFechaDest = new JLabel(String.valueOf(diaVuelta)+"-"+mesVuelta+"-"+String.valueOf(anioVuelta));
 		panelDatos.add(lblFechaDest);
 
 		

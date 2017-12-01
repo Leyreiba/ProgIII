@@ -141,6 +141,16 @@ public class BusquedaVuelos extends JFrame {
 		comboBoxDestino.setBounds(286, 13, 87, 20);
 		panel.add(comboBoxDestino);
 		
+		comboBoxDestino.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				BusquedaHoteles.setDestino(comboBoxDestino.getSelectedItem().toString());
+				
+			}
+		});
+		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -148,10 +158,11 @@ public class BusquedaVuelos extends JFrame {
 					JOptionPane.showMessageDialog(null,"El precio mínimo no puede ser mayor que el precio máximo");
 				}
 				else {
-					//muestro en la ventanaResultadosBusqueda los datos elegidos en la ventana anterior. Origen, destino, dia, mes, anio, precio
-					ResultadosBusquedaVuelos vp= new ResultadosBusquedaVuelos(comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(), calendarIda.getDayChooser().getDay(), String.valueOf(calendarIda.getMonthChooser().getMonth()), calendarIda.getYearChooser().getYear(),sliderPrecioMin.getValue());
+					//muestro en la ventanaResultadosBusqueda los datos elegidos en la ventana anterior. Origen, destino, dia, mes, anio, precio(queremos sacar en la jtable aquellos vuelos con un precio entre el minimo y el maximo que hayamos introducido)
+					ResultadosBusquedaVuelos vp= new ResultadosBusquedaVuelos(comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(), calendarIda.getDayChooser().getDay(), String.valueOf(calendarIda.getMonthChooser().getMonth()+1), calendarIda.getYearChooser().getYear(),sliderPrecioMin.getValue(),calendarVuelta.getDayChooser().getDay(), String.valueOf(calendarVuelta.getMonthChooser().getMonth()+1), calendarVuelta.getYearChooser().getYear());
 					vp.setVisible(true);
 					dispose();
+					
 				}
 			}
 		});

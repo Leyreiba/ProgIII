@@ -98,7 +98,7 @@ public class GestionCompra extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ResultadosBusquedaVuelos vp= new ResultadosBusquedaVuelos("","",0,"",0,0);
+				ResultadosBusquedaVuelos vp= new ResultadosBusquedaVuelos("","",0,"",0,0,0, "", 0);
 				vp.setVisible(true);
 				dispose();
 			}
