@@ -19,7 +19,8 @@ import javax.swing.JTextField;
 public class ResultadosBusquedaHoteles extends JFrame {
 
 	private JPanel contentPane;
-
+	private int precio;
+	private String lugar;
 	/**
 	 * Launch the application.
 	 */
@@ -40,6 +41,9 @@ public class ResultadosBusquedaHoteles extends JFrame {
 	 * Create the frame.
 	 */
 	public ResultadosBusquedaHoteles(int precio, String lugar) {
+		this.precio = precio;
+		this.lugar = lugar;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

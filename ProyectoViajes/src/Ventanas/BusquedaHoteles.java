@@ -152,7 +152,7 @@ public class BusquedaHoteles extends JFrame {
 	
 	//creamos un destino y le asginamos el valor del destino del combobox de vuelos
 	
-	public static void setDestino(String destino){
-		this.destino=destino;
+	public static void setDestino(String dest){
+		destino=dest;
 	}
 }

@@ -7,10 +7,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.plaf.SliderUI;
+
+import Ventanas.BusquedaVuelos;
+
 public class BD {
 		
 	private static Connection con;
 	private static Statement stmt;
+	private static String precio;
 	
 	/**
 	 * Metodo que crea una sentencia para acceder a la base de datos 
@@ -121,6 +126,9 @@ public class BD {
 				e.printStackTrace();
 			};
 		}
+		
+		
+		
 		public static Object[][] volcarDatosVuelos(String origen, String destino, int dia, String mes, int anio, int precio) {
             Object [][] datos = new Object[1000][8];
             //cogemos mediante un select los vuelos disponibles respecto a los datos que hayamos elegido
@@ -153,6 +161,23 @@ public class BD {
 
 
 		}
+		
+		
+		public static int obtenerPrecio(int precio){
+			/*metodo que recoge los precios minimo y maximo en la selección de un vuelo y busca los vuelos con un precio
+			entre esos dos valores*/
+			//el precio que devolveremos será el precio que volcaremos en la select de volcarDatosVuelos
+
+			if(BusquedaVuelos.valorSliderMin()<=precio && BusquedaVuelos.valorSliderMax()>=precio)
+			return precio;
+			else{
+				System.out.println("no hay ningún precio entre esos valores");
+			}
+			return precio;
+			
+			
+		}
+		
 		
 		/**
 		 * Creamos este método para seleccionar de la base de datos los origenes y destinos que sean diferentes entre si
@@ -221,6 +246,8 @@ public class BD {
 
 
 		}
+		
+	
 		
 		
 }

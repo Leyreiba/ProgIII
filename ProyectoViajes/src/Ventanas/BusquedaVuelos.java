@@ -128,6 +128,8 @@ public class BusquedaVuelos extends JFrame {
 		panel.add(sliderPrecioMax);
 		
 		
+		
+		
 		//String[] opciones1= {"origen1","origen2","origen3","origen4"};
 		//volcar de la base de datos todos los origenes que sean distintos. Para ello llamamos al metodo ya implementado en la clase BD
 		String[] opciones1 = BD.obtenerOrigenDestino('o');
@@ -160,7 +162,9 @@ public class BusquedaVuelos extends JFrame {
 				}
 				else {
 					//muestro en la ventanaResultadosBusqueda los datos elegidos en la ventana anterior. Origen, destino, dia, mes, anio, precio(queremos sacar en la jtable aquellos vuelos con un precio entre el minimo y el maximo que hayamos introducido)
-					ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), destino);vp.setVisible(true);
+					ResultadosBusquedaVuelos vp= new ResultadosBusquedaVuelos(comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(), calendarIda.getDayChooser().getDay(), String.valueOf(calendarIda.getMonthChooser().getMonth()+1), calendarIda.getYearChooser().getYear(),sliderPrecioMin.getValue(),calendarVuelta.getDayChooser().getDay(), String.valueOf(calendarVuelta.getMonthChooser().getMonth()+1), calendarVuelta.getYearChooser().getYear());
+					BusquedaHoteles.setDestino(String.valueOf(comboBoxDestino.getSelectedItem()));
+					vp.setVisible(true);
 					dispose();
 					
 				}
@@ -179,7 +183,17 @@ public class BusquedaVuelos extends JFrame {
 		
 	}
 	
-	public static void setDestino(String destino){
-		this.destino=destino;
+
+	public static int valorSliderMin(){
+		int valuemin= sliderPrecioMin.getValue();
+		return valuemin;
 	}
+	
+	public static int valorSliderMax(){
+		int valuemax= sliderPrecioMax.getValue();
+		return valuemax;
+	}
+	
+
+	
 }
