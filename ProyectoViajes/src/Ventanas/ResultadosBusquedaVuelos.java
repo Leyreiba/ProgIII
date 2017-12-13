@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import BaseDeDatos.BD;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -21,12 +22,13 @@ import java.awt.FlowLayout;
 public class ResultadosBusquedaVuelos extends JFrame {
 
 	private JPanel contentPane;
+	private JTable tablaSur; 
 
 	
 	/**
 	 * Create the frame.
 	 */
-	public ResultadosBusquedaVuelos(String origen, String destino, int dia, String mes, int anio, int precio, int diaVuelta, String mesVuelta, int anioVuelta) {
+	public ResultadosBusquedaVuelos(String origen, String destino, int dia, String mes, int anio, int precioMin, int precioMax, int diaVuelta, String mesVuelta, int anioVuelta) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -47,6 +49,10 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		panelSur.add(btnComprar);
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//si no hay nada seleccionado aparece un mensaje de error
+				if(!tablaSur.isCellSelected(1, 1)){
+					JOptionPane.showMessageDialog(null, "Necesita seleccionar una opción para poder realizar con la compra");
+				}
 				GestionCompra vp= new GestionCompra();
 				vp.setVisible(true);
 				dispose();
@@ -110,8 +116,8 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		 * en función de la select que hayamos hecho anteriormente introducidos unos datos en concreto
 		 * */
 		String nombresColumnas[] = {"ORIGEN","DESTINO","DURACION","PRECIO","HORA","DIA","MES","AÑO"}; //array con los titulos de cada columna
-		Object datos[][] = BD.volcarDatosVuelos(origen, destino, dia, mes, anio,precio); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
-		JTable tablaSur = new JTable(datos,nombresColumnas); //metemos en una jtable estos arrays
+		Object datos[][] = BD.volcarDatosVuelos(origen, destino, dia, mes, anio,precioMin, precioMax); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
+		tablaSur = new JTable(datos,nombresColumnas); //metemos en una jtable estos arrays
 		panelTabla.setLayout(new BorderLayout());
 		panelTabla.add(tablaSur.getTableHeader(), BorderLayout.NORTH); 
 		panelTabla.add(tablaSur, BorderLayout.CENTER);

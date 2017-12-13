@@ -129,11 +129,13 @@ public class BD {
 		
 		
 		
-		public static Object[][] volcarDatosVuelos(String origen, String destino, int dia, String mes, int anio, int precio) {
+		public static Object[][] volcarDatosVuelos(String origen, String destino, int dia, String mes, int anio, int precioMin , int precioMax) {
             Object [][] datos = new Object[1000][8];
             //cogemos mediante un select los vuelos disponibles respecto a los datos que hayamos elegido
             //SELECT * FROM vuelos WHERE VentanaPrincipal.origen=opciones1.getOrigenSeleccionado AND VentanaPrincipal.destino=opciones2.getDestinoSeleccionado AND precio=precio.getValor AND dia,mes,año...
-            String query = "SELECT * FROM vuelos WHERE origen='"+origen+"' AND destino='"+destino+"' AND dia="+dia+" AND mes='"+mes+"' AND año="+anio+" AND precio='"+precio+"'";
+            //System.out.println(origen+" "+destino+" "+dia+" "+mes+" "+anio+" "+precioMin+" "+precioMax);
+            String query = "SELECT * FROM vuelos WHERE origen='"+origen+"' AND destino='"+destino+"' AND dia="+dia+" AND mes='"+mes+"' AND año="+anio+" AND precio>="+precioMin +" AND precio<="+precioMax;
+            //String query="SELECT * FROM vuelos";
             //System.out.println("dia origen: "+dia+"mes origen: "+mes+"año origen: "+anio);
 
            
@@ -162,21 +164,6 @@ public class BD {
 
 		}
 		
-		
-		public static int obtenerPrecio(int precio){
-			/*metodo que recoge los precios minimo y maximo en la selección de un vuelo y busca los vuelos con un precio
-			entre esos dos valores*/
-			//el precio que devolveremos será el precio que volcaremos en la select de volcarDatosVuelos
-
-			if(BusquedaVuelos.valorSliderMin()<=precio && BusquedaVuelos.valorSliderMax()>=precio)
-			return precio;
-			else{
-				System.out.println("no hay ningún precio entre esos valores");
-			}
-			return precio;
-			
-			
-		}
 		
 		
 		/**

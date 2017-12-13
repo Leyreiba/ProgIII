@@ -28,6 +28,8 @@ public class BusquedaVuelos extends JFrame {
 	private JPanel contentPane;
 	private JCalendar calendarIda, calendarVuelta;
 	private static String destino;
+	private static JSlider sliderPrecioMax;
+	private static JSlider sliderPrecioMin;
 
 	/**
 	 * Launch the application.
@@ -92,7 +94,7 @@ public class BusquedaVuelos extends JFrame {
 		lblPrecioScrollMax.setBounds(92, 235, 37, 20);
 		panel.add(lblPrecioScrollMax);
 		
-		JSlider sliderPrecioMin = new JSlider();
+		sliderPrecioMin = new JSlider();
 		sliderPrecioMin.setValue(0);
 		sliderPrecioMin.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -110,7 +112,7 @@ public class BusquedaVuelos extends JFrame {
 		panel.add(sliderPrecioMin);
 		
 
-		JSlider sliderPrecioMax = new JSlider();
+		sliderPrecioMax = new JSlider();
 		sliderPrecioMax.setValue(0);
 		sliderPrecioMax.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -162,7 +164,7 @@ public class BusquedaVuelos extends JFrame {
 				}
 				else {
 					//muestro en la ventanaResultadosBusqueda los datos elegidos en la ventana anterior. Origen, destino, dia, mes, anio, precio(queremos sacar en la jtable aquellos vuelos con un precio entre el minimo y el maximo que hayamos introducido)
-					ResultadosBusquedaVuelos vp= new ResultadosBusquedaVuelos(comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(), calendarIda.getDayChooser().getDay(), String.valueOf(calendarIda.getMonthChooser().getMonth()+1), calendarIda.getYearChooser().getYear(),sliderPrecioMin.getValue(),calendarVuelta.getDayChooser().getDay(), String.valueOf(calendarVuelta.getMonthChooser().getMonth()+1), calendarVuelta.getYearChooser().getYear());
+					ResultadosBusquedaVuelos vp= new ResultadosBusquedaVuelos(comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(), calendarIda.getDayChooser().getDay(), String.valueOf(calendarIda.getMonthChooser().getMonth()+1), calendarIda.getYearChooser().getYear(),sliderPrecioMin.getValue(),sliderPrecioMax.getValue(),calendarVuelta.getDayChooser().getDay(), String.valueOf(calendarVuelta.getMonthChooser().getMonth()+1), calendarVuelta.getYearChooser().getYear());
 					BusquedaHoteles.setDestino(String.valueOf(comboBoxDestino.getSelectedItem()));
 					vp.setVisible(true);
 					dispose();
@@ -184,15 +186,6 @@ public class BusquedaVuelos extends JFrame {
 	}
 	
 
-	public static int valorSliderMin(){
-		int valuemin= sliderPrecioMin.getValue();
-		return valuemin;
-	}
-	
-	public static int valorSliderMax(){
-		int valuemax= sliderPrecioMax.getValue();
-		return valuemax;
-	}
 	
 
 	
