@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
@@ -22,7 +23,8 @@ import java.awt.FlowLayout;
 public class ResultadosBusquedaVuelos extends JFrame {
 
 	private JPanel contentPane;
-	private JTable tablaSur; 
+	private JTable tablaSurIda; 
+	private JTable tablaSurVuelta;
 
 	
 	/**
@@ -49,13 +51,38 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		panelSur.add(btnComprar);
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//si no hay nada seleccionado aparece un mensaje de error
-				if(!tablaSur.isCellSelected(1, 1)){
-					JOptionPane.showMessageDialog(null, "Necesita seleccionar una opción para poder realizar con la compra");
+				//si no hay nada seleccionado aparece un mensaje de error //CORREGIR LO DE SELECCIONAR DE LA JTABLE!!!!!!!!!!!!
+				if(!tablaSurIda.isCellSelected(1, 1)){
+					JOptionPane.showMessageDialog(null, "Necesita seleccionar una opción para su vuelo de ida");
 				}
-				GestionCompra vp= new GestionCompra();
-				vp.setVisible(true);
-				dispose();
+				//si en la tabla de vuelta no hay nada seleccionado, le da la opcion de seleccionar algo o ir a por el hotel
+				else if(!tablaSurVuelta.isCellSelected(1, 1)){
+					String[] opcion={"SI","NO"};
+					JOptionPane.showConfirmDialog(null, "¿Seguir sin seleccionar vuelo de vuelta?", "ALERTA", JOptionPane.YES_NO_OPTION);
+						if(opcion.equals("SI")){
+							//le pregunto a ver si quiere comprar hotel
+							JOptionPane.showConfirmDialog(null, "¿Desea reservar un hotel?","HOTEL", JOptionPane.YES_NO_OPTION);
+							if(opcion.equals("SI")){
+								BusquedaHoteles bh = new BusquedaHoteles();
+								bh.setVisible(true);
+								dispose();
+							}
+							else if(opcion.equals("NO")){
+								GestionCompra gc= new GestionCompra();
+								gc.setVisible(true);
+								dispose();
+							}
+							
+						}
+						else{
+							ResultadosBusquedaVuelos rv= new ResultadosBusquedaVuelos(origen, destino, dia, mes, anio, precioMin, precioMax, diaVuelta, mesVuelta, anioVuelta);
+							rv.setVisible(true);
+							dispose();
+						}
+				}
+//				GestionCompra vp= new GestionCompra();
+//				vp.setVisible(true);
+//				dispose();
 			}
 		});
 		btnBuscarOtro.addActionListener(new ActionListener() {
@@ -115,13 +142,24 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		 * de cada uno de los atributoso de la base de datos. Para mostrar la información que hay de cada uno de ellos
 		 * en función de la select que hayamos hecho anteriormente introducidos unos datos en concreto
 		 * */
-		String nombresColumnas[] = {"ORIGEN","DESTINO","DURACION","PRECIO","HORA","DIA","MES","AÑO"}; //array con los titulos de cada columna
-		Object datos[][] = BD.volcarDatosVuelos(origen, destino, dia, mes, anio,precioMin, precioMax); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
-		tablaSur = new JTable(datos,nombresColumnas); //metemos en una jtable estos arrays
+		String nombresColumnasIda[] = {"ORIGEN","DESINO","DURACION","PRECIO","HORA","DIA","MES","AÑO"}; //array con los titulos de cada columna
+		Object datosIda[][] = BD.volcarDatosVuelos(origen, destino, dia, mes, anio,precioMin, precioMax); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
+		tablaSurIda = new JTable(datosIda,nombresColumnasIda); //metemos en una jtable estos arrays
 		panelTabla.setLayout(new BorderLayout());
-		panelTabla.add(tablaSur.getTableHeader(), BorderLayout.NORTH); 
-		panelTabla.add(tablaSur, BorderLayout.CENTER);
+		panelTabla.add(tablaSurIda.getTableHeader(), BorderLayout.NORTH); 
+		panelTabla.add(tablaSurIda, BorderLayout.NORTH);
+		JScrollBar sbIda= new JScrollBar();
+		tablaSurIda.add(sbIda);
 
-        	
+		//CREO QUE SE SOLAPAN. CAMBIAR EL ABSOLUTLAYOUT????
+       String nombrescolumnasVuelta[]= {"ORIGEN", "DESTINO", "DURACION", "PRECIO", "HORA", "DIA", "MES", "AÑO"};
+       Object datosVuelta[][] = BD.volcarDatosVuelos(origen, destino, dia, mes, anio, precioMin, precioMax);
+       tablaSurVuelta = new JTable(datosVuelta, nombrescolumnasVuelta);
+       panelTabla.setLayout(new BorderLayout());
+       panelTabla.add(tablaSurVuelta.getTableHeader(), BorderLayout.SOUTH);
+       panelTabla.add(tablaSurVuelta, BorderLayout.SOUTH);
+       JScrollBar sbVuelta= new JScrollBar();
+       tablaSurVuelta.add(sbVuelta);
+       
 	}
 }
