@@ -137,27 +137,40 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		panelCentro.add(panelTabla);
 		panelTabla.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
+		//creo 2 paneles nuevos dentro del anterior para meter cada jtable en cada uno
+		
+		JPanel panelTablaEn2Izq = new JPanel();
+		panelTabla.add(panelTablaEn2Izq);
+		panelTablaEn2Izq.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 2));
+		
+		JPanel panelTablaEn2Der = new JPanel();
+		panelTabla.add(panelTablaEn2Der);
+		panelTablaEn2Der.setLayout(new FlowLayout(FlowLayout.RIGHT, 2, 2));
+		
 		/**
 		 * Creamos una JTable con un array que mostraremos en la primera fila como muestra de los titulos
 		 * de cada uno de los atributoso de la base de datos. Para mostrar la información que hay de cada uno de ellos
 		 * en función de la select que hayamos hecho anteriormente introducidos unos datos en concreto
 		 * */
+		
+		
+		
 		String nombresColumnasIda[] = {"ORIGEN","DESINO","DURACION","PRECIO","HORA","DIA","MES","AÑO"}; //array con los titulos de cada columna
 		Object datosIda[][] = BD.volcarDatosVuelos(origen, destino, dia, mes, anio,precioMin, precioMax); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
 		tablaSurIda = new JTable(datosIda,nombresColumnasIda); //metemos en una jtable estos arrays
-		panelTabla.setLayout(new BorderLayout());
-		panelTabla.add(tablaSurIda.getTableHeader(), BorderLayout.NORTH); 
-		panelTabla.add(tablaSurIda, BorderLayout.NORTH);
+		panelTablaEn2Izq.setLayout(new BorderLayout());
+		panelTablaEn2Izq.add(tablaSurIda.getTableHeader(), BorderLayout.NORTH); 
+		panelTablaEn2Izq.add(tablaSurIda, BorderLayout.NORTH);
 		JScrollBar sbIda= new JScrollBar();
 		tablaSurIda.add(sbIda);
 
-		//CREO QUE SE SOLAPAN. CAMBIAR EL ABSOLUTLAYOUT????
+		
        String nombrescolumnasVuelta[]= {"ORIGEN", "DESTINO", "DURACION", "PRECIO", "HORA", "DIA", "MES", "AÑO"};
        Object datosVuelta[][] = BD.volcarDatosVuelos(origen, destino, dia, mes, anio, precioMin, precioMax);
        tablaSurVuelta = new JTable(datosVuelta, nombrescolumnasVuelta);
-       panelTabla.setLayout(new BorderLayout());
-       panelTabla.add(tablaSurVuelta.getTableHeader(), BorderLayout.SOUTH);
-       panelTabla.add(tablaSurVuelta, BorderLayout.SOUTH);
+       panelTablaEn2Der.setLayout(new BorderLayout());
+       panelTablaEn2Der.add(tablaSurVuelta.getTableHeader(), BorderLayout.SOUTH);
+       panelTablaEn2Der.add(tablaSurVuelta, BorderLayout.SOUTH);
        JScrollBar sbVuelta= new JScrollBar();
        tablaSurVuelta.add(sbVuelta);
        
