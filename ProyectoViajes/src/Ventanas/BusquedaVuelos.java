@@ -179,9 +179,12 @@ public class BusquedaVuelos extends JFrame {
 		calendarIda.setBounds(23, 69, 190, 106);
 		panel.add(calendarIda);
 		
+		//hacer q el calendario de vuelta aparezca por defecto con un día más que el de vuelta siempre,
+		//o el mismo día ya que puedes ir y volver en el mismo día
 		calendarVuelta = new JCalendar();
 		calendarVuelta.setBounds(223, 69, 191, 106);
 		panel.add(calendarVuelta);
+		
 		
 	}
 	

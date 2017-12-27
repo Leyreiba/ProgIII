@@ -54,8 +54,8 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int numFilaIda, numFilaVuelta;
-				//si no hay nada seleccionado aparece un mensaje de error //CORREGIR LO DE SELECCIONAR DE LA JTABLE!!!!!!!!!!!!
-				if(tablaSurIda.getSelectedRow()==-1){
+				//si no hay nada seleccionado aparece un mensaje de error para volver a seleccionar, ya que no puede seguir sin vuelo de ida 
+				if(tablaSurIda.getSelectedRow()==-1){ //si no hay nada seleccionado
 					JOptionPane.showMessageDialog(null, "Necesita seleccionar una opción para su vuelo de ida");
 				}
 				//si en la tabla de vuelta no hay nada seleccionado, le da la opcion de seleccionar algo o ir a por el hotel
@@ -179,8 +179,6 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		 * en función de la select que hayamos hecho anteriormente introducidos unos datos en concreto
 		 * */
 		
-		
-		
 		String nombresColumnasIda[] = {"ORIGEN","DESTINO","DURACION","PRECIO","HORA","DIA","MES","AÑO"}; //array con los titulos de cada columna
 		Object datosIda[][] = BD.volcarDatosVuelos(origen, destino, dia, mes, anio,precioMin, precioMax); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
 		tablaSurIda = new JTable(datosIda,nombresColumnasIda); //metemos en una jtable estos arrays
@@ -188,7 +186,16 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		panelTablaArriba.add(tablaSurIda.getTableHeader(), BorderLayout.NORTH); 
 		panelTablaArriba.add(tablaSurIda, BorderLayout.CENTER);
 		JScrollBar sbIda= new JScrollBar();
-		tablaSurIda.add(sbIda);
+		tablaSurIda.add(sbIda);		
+		
+		/*si no hay vuelos en la base de datos que coincidan con nuestros datos seleccionados y por lo tanto nada que volcar a la jtable,
+		bloqueo las casillas de esta ya q no hay nada para seleccionar*/
+		
+		Object obj[][]=null;		
+		if(datosIda.equals(obj)){
+			//System.out.println("no hay datos para seleccionar");
+			tablaSurIda.setRowSelectionAllowed(false);
+		}
 
 		//el origen en este caso va a ser el destino y viceversa, porque es la jtable de vuelta
        String nombrescolumnasVuelta[]= {"ORIGEN", "DESTINO", "DURACION", "PRECIO", "HORA", "DIA", "MES", "AÑO"};
@@ -199,6 +206,10 @@ public class ResultadosBusquedaVuelos extends JFrame {
        panelTablaAbajo.add(tablaSurVuelta, BorderLayout.CENTER);
        JScrollBar sbVuelta= new JScrollBar();
        tablaSurVuelta.add(sbVuelta);
+       
+       if(datosVuelta.equals(null)){
+    	   tablaSurVuelta.setRowSelectionAllowed(false);
+       }
        
    	
 	}
