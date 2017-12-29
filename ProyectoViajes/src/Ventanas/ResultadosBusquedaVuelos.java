@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import BaseDeDatos.BD;
@@ -173,6 +174,7 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		JPanel panelTablaAbajo = new JPanel();
 		panelTabla.add(panelTablaAbajo);
 		
+		
 		/**
 		 * Creamos una JTable con un array que mostraremos en la primera fila como muestra de los titulos
 		 * de cada uno de los atributoso de la base de datos. Para mostrar la información que hay de cada uno de ellos
@@ -181,7 +183,13 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		
 		String nombresColumnasIda[] = {"ORIGEN","DESTINO","DURACION","PRECIO","HORA","DIA","MES","AÑO"}; //array con los titulos de cada columna
 		Object datosIda[][] = BD.volcarDatosVuelos(origen, destino, dia, mes, anio,precioMin, precioMax); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
-		tablaSurIda = new JTable(datosIda,nombresColumnasIda); //metemos en una jtable estos arrays
+		
+		//cancelo la edición de las celdas mediante este método
+		DefaultTableModel modeloida = new DefaultTableModel(datosIda,nombresColumnasIda){
+		    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
+		};
+		
+		tablaSurIda = new JTable(modeloida); //metemos en una jtable estos arrays
 		panelTablaArriba.setLayout(new BorderLayout());
 		panelTablaArriba.add(tablaSurIda.getTableHeader(), BorderLayout.NORTH); 
 		panelTablaArriba.add(tablaSurIda, BorderLayout.CENTER);
@@ -191,16 +199,22 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		/*si no hay vuelos en la base de datos que coincidan con nuestros datos seleccionados y por lo tanto nada que volcar a la jtable,
 		bloqueo las casillas de esta ya q no hay nada para seleccionar*/
 		
+		
 		Object obj[][]=null;		
 		if(datosIda.equals(obj)){
-			//System.out.println("no hay datos para seleccionar");
+			//System.out.println("no hay datos para seleccionar");			
 			tablaSurIda.setRowSelectionAllowed(false);
 		}
 
 		//el origen en este caso va a ser el destino y viceversa, porque es la jtable de vuelta
        String nombrescolumnasVuelta[]= {"ORIGEN", "DESTINO", "DURACION", "PRECIO", "HORA", "DIA", "MES", "AÑO"};
        Object datosVuelta[][] = BD.volcarDatosVuelos(destino, origen, dia, mes, anio, precioMin, precioMax);
-       tablaSurVuelta = new JTable(datosVuelta, nombrescolumnasVuelta);
+       
+       DefaultTableModel modelovuelta = new DefaultTableModel(datosVuelta,nombrescolumnasVuelta){
+		    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
+		};
+       
+       tablaSurVuelta = new JTable(modelovuelta);
        panelTablaAbajo.setLayout(new BorderLayout());
        panelTablaAbajo.add(tablaSurVuelta.getTableHeader(), BorderLayout.NORTH);
        panelTablaAbajo.add(tablaSurVuelta, BorderLayout.CENTER);
