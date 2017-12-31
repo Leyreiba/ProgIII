@@ -2,7 +2,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 
-public class Test {
+import BaseDeDatos.BD;
+import junit.framework.TestCase;
+
+public class Test extends TestCase{
 
 	@Before
 	public void setUp() throws Exception {
@@ -10,7 +13,8 @@ public class Test {
 
 	@org.junit.Test
 	public void test() {
-		fail("Not yet implemented");
+		int result= BD.existeUsuario("leyre", "leyre");
+		assertEquals(2, result);
 	}
 
 }
