@@ -63,7 +63,7 @@ public class ResultadosBusquedaVuelos extends JFrame {
 				else if(tablaSurVuelta.getSelectedRow()==-1){
 					String[] opcion={"SI","NO"};
 					JOptionPane.showConfirmDialog(null, "¿Seguir sin seleccionar vuelo de vuelta?", "ALERTA", JOptionPane.YES_NO_OPTION);
-						if(opcion.equals("SI")){
+						if(opcion.equals("SI")){ //ESTO NO FUNCIONA. DEBERÍA DE LLEVARNOS A LA SIGUIENTE PREGUNTA DE "¿DESDEA RESERVAR UN HOTEL?"
 							//le pregunto a ver si quiere comprar hotel
 							JOptionPane.showConfirmDialog(null, "¿Desea reservar un hotel?","HOTEL", JOptionPane.YES_NO_OPTION);
 							if(opcion.equals("SI")){
@@ -84,7 +84,7 @@ public class ResultadosBusquedaVuelos extends JFrame {
 							rv.setVisible(true);
 							dispose();
 						}
-				}else{
+				}else{//SI YA HA SELECCIONADO VUELO DE IDA Y DE VUELTA LE TIENE QUE DAR LA OPCION DE ELEGIR UN HOTEL O PASAR A LA COMPRA DEL VUELO
 					//{"ORIGEN","DESTINO","DURACION","PRECIO","HORA","DIA","MES","AÑO"};
 					numFilaIda = tablaSurIda.getSelectedRow();
 					numFilaVuelta = tablaSurVuelta.getSelectedRow();
@@ -196,15 +196,6 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		JScrollBar sbIda= new JScrollBar();
 		tablaSurIda.add(sbIda);		
 		
-		/*si no hay vuelos en la base de datos que coincidan con nuestros datos seleccionados y por lo tanto nada que volcar a la jtable,
-		bloqueo las casillas de esta ya q no hay nada para seleccionar*/
-		
-		
-		Object obj[][]=null;		
-		if(datosIda.equals(obj)){
-			//System.out.println("no hay datos para seleccionar");			
-			tablaSurIda.setRowSelectionAllowed(false);
-		}
 
 		//el origen en este caso va a ser el destino y viceversa, porque es la jtable de vuelta
        String nombrescolumnasVuelta[]= {"ORIGEN", "DESTINO", "DURACION", "PRECIO", "HORA", "DIA", "MES", "AÑO"};
@@ -213,7 +204,6 @@ public class ResultadosBusquedaVuelos extends JFrame {
        DefaultTableModel modelovuelta = new DefaultTableModel(datosVuelta,nombrescolumnasVuelta){
 		    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
 		};
-       
        tablaSurVuelta = new JTable(modelovuelta);
        panelTablaAbajo.setLayout(new BorderLayout());
        panelTablaAbajo.add(tablaSurVuelta.getTableHeader(), BorderLayout.NORTH);
@@ -221,9 +211,6 @@ public class ResultadosBusquedaVuelos extends JFrame {
        JScrollBar sbVuelta= new JScrollBar();
        tablaSurVuelta.add(sbVuelta);
        
-       if(datosVuelta.equals(null)){
-    	   tablaSurVuelta.setRowSelectionAllowed(false);
-       }
        
    	
 	}

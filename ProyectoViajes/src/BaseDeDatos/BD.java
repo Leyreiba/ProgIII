@@ -127,10 +127,25 @@ public class BD {
 			};
 		}
 		
-		
+		public static int contarVueltos(String origen, String destino, int dia, String mes, int anio, int precioMin , int precioMax){
+			String query = "SELECT COUNT(*) FROM vuelos WHERE origen='"+origen+"' AND destino='"+destino+"' AND dia="+dia+" AND mes='"+mes+"' AND año="+anio+" AND precio>="+precioMin +" AND precio<="+precioMax;
+            int cont=0;
+			try {
+				ResultSet rs = stmt.executeQuery(query);
+				cont = rs.getInt(1);
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            return cont;
+		}
 		
 		public static Object[][] volcarDatosVuelos(String origen, String destino, int dia, String mes, int anio, int precioMin , int precioMax) {
-            Object [][] datos = new Object[1000][8];
+            //insertamos tantas filas como vuelos de la base de datos haya para volcar
+			int cont = contarVueltos(origen, destino, dia, mes, anio, precioMin, precioMax);
+			Object [][] datos =new Object[cont][8];
+            int i=0;
             //cogemos mediante un select los vuelos disponibles respecto a los datos que hayamos elegido
             //SELECT * FROM vuelos WHERE VentanaPrincipal.origen=opciones1.getOrigenSeleccionado AND VentanaPrincipal.destino=opciones2.getDestinoSeleccionado AND precio=precio.getValor AND dia,mes,año...
             //System.out.println(origen+" "+destino+" "+dia+" "+mes+" "+anio+" "+precioMin+" "+precioMax);
@@ -142,25 +157,29 @@ public class BD {
             
             try {
                             ResultSet rs = stmt.executeQuery(query);
-                            int i=0;
-                            while(rs.next()){
-                                            datos[i][0] = rs.getString("origen");
-                                            datos[i][1] = rs.getString("destino");
-                                            datos[i][2] = new Double(rs.getDouble("duracion"));
-                                            datos[i][3] = new Double(rs.getDouble("precio"));
-                                            datos[i][4] = new Double(rs.getDouble("hora"));
-                                            datos[i][5] = new Double(rs.getDouble("dia"));
-                                            datos[i][6] = rs.getString("mes");
-                                            datos[i][7] = new Double(rs.getDouble("año"));
-                                            i++;
-                            }
-                            rs.close();
+                                i=0;
+	                            while(rs.next()){
+	                                            datos[i][0] = rs.getString("origen");
+	                                            datos[i][1] = rs.getString("destino");
+	                                            datos[i][2] = new Double(rs.getDouble("duracion"));
+	                                            datos[i][3] = new Double(rs.getDouble("precio"));
+	                                            datos[i][4] = new Double(rs.getDouble("hora"));
+	                                            datos[i][5] = new Double(rs.getDouble("dia"));
+	                                            datos[i][6] = rs.getString("mes");
+	                                            datos[i][7] = new Double(rs.getDouble("año"));
+	                                            i++;
+	                            }
+                            
+	                           rs.close();
+                            
             } catch (SQLException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
             }
-            return datos;
-
+            if(i>0)
+            	return datos;
+            else
+            	return null;
 
 		}
 		
