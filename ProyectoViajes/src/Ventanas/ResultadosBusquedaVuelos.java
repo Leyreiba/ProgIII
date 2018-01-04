@@ -86,6 +86,7 @@ public class ResultadosBusquedaVuelos extends JFrame {
 						}
 				}else{//SI YA HA SELECCIONADO VUELO DE IDA Y DE VUELTA LE TIENE QUE DAR LA OPCION DE ELEGIR UN HOTEL O PASAR A LA COMPRA DEL VUELO
 					//{"ORIGEN","DESTINO","DURACION","PRECIO","HORA","DIA","MES","AÑO"};
+					System.out.println("Hola");
 					numFilaIda = tablaSurIda.getSelectedRow();
 					numFilaVuelta = tablaSurVuelta.getSelectedRow();
 					TableModel modelo = tablaSurIda.getModel();
