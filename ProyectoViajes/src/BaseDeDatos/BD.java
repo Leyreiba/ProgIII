@@ -161,12 +161,12 @@ public class BD {
 	                            while(rs.next()){
 	                                            datos[i][0] = rs.getString("origen");
 	                                            datos[i][1] = rs.getString("destino");
-	                                            datos[i][2] = new Double(rs.getDouble("duracion"));
-	                                            datos[i][3] = new Double(rs.getDouble("precio"));
-	                                            datos[i][4] = new Double(rs.getDouble("hora"));
-	                                            datos[i][5] = new Double(rs.getDouble("dia"));
+	                                            datos[i][2] = new Integer(rs.getInt("duracion"));
+	                                            datos[i][3] = new Integer(rs.getInt("precio"));
+	                                            datos[i][4] = new Integer(rs.getInt("hora"));
+	                                            datos[i][5] = new Integer(rs.getInt("dia"));
 	                                            datos[i][6] = rs.getString("mes");
-	                                            datos[i][7] = new Double(rs.getDouble("año"));
+	                                            datos[i][7] = new Integer(rs.getInt("año"));
 	                                            i++;
 	                            }
                             

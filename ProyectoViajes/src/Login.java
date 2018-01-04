@@ -61,6 +61,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		this.setTitle("Login");
 		/**
 		 * Creamos un objeto BD. Mediante el Handler sabemos a qué fichero se mandarán los logs.
 		 * Al log le ponemos un formato normal y se lo actualizamos en el Handler. 

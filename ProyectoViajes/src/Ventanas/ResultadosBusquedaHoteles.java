@@ -40,7 +40,8 @@ public class ResultadosBusquedaHoteles extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ResultadosBusquedaHoteles(int precio, String lugar) {
+	public ResultadosBusquedaHoteles(int precio, String lugar, int numHuespedes) {
+		this.setTitle("Resultado búsqueda hoteles");
 		this.precio = precio;
 		this.lugar = lugar;
 		
@@ -89,10 +90,12 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		btnBuscarOtro.setBounds(64, 197, 124, 23);
 		panelCentro.add(btnBuscarOtro);
 		
-		JLabel lblHuespedes = new JLabel("Total Huespedes:");
+		//INTENTANDO INTRODUCIR EL NUM DE HUESPEDES
+		JLabel lblHuespedes = new JLabel(numHuespedes);
 		lblHuespedes.setBounds(37, 11, 99, 14);
 		panelCentro.add(lblHuespedes);
 		
+		//EL NUMERO QUE HAYAMOS SELECCIONADO EN LA VENTANA ANTERIOR
 		JLabel lblNumHuespedes = new JLabel("New label");
 		lblNumHuespedes.setBounds(142, 11, 46, 14);
 		panelCentro.add(lblNumHuespedes);
@@ -105,10 +108,12 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		lblFechaSalida.setBounds(228, 35, 75, 14);
 		panelCentro.add(lblFechaSalida);
 		
+		//LA FECHA DE ENTRADA ES LA MISMA QUE LA FECHA DEL VUELO DE IDA
 		JLabel lblEntrada = new JLabel("New label");
 		lblEntrada.setBounds(318, 11, 46, 14);
 		panelCentro.add(lblEntrada);
 		
+		//LA FECHA DE SALIDA ES LA MISMA QUE LA FECHA DEL VUELO DE VUELTA
 		JLabel lblSalida = new JLabel("New label");
 		lblSalida.setBounds(318, 35, 46, 14);
 		panelCentro.add(lblSalida);

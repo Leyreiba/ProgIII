@@ -34,6 +34,7 @@ public class GestionCompra extends JFrame {
 	 * Create the frame.
 	 */
 	public GestionCompra() {
+		this.setTitle("Gestión compra");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

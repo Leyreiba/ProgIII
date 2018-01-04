@@ -34,6 +34,7 @@ public class ResultadosBusquedaVuelos extends JFrame {
 	 * Create the frame.
 	 */
 	public ResultadosBusquedaVuelos(String origen, String destino, int dia, String mes, int anio, int precioMin, int precioMax, int diaVuelta, String mesVuelta, int anioVuelta) {
+		this.setTitle("Resultados búsqueda vuelos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -54,6 +55,7 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		panelSur.add(btnComprar);
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				int numFilaIda, numFilaVuelta;
 				//si no hay nada seleccionado aparece un mensaje de error para volver a seleccionar, ya que no puede seguir sin vuelo de ida 
 				if(tablaSurIda.getSelectedRow()==-1){ //si no hay nada seleccionado
@@ -61,24 +63,28 @@ public class ResultadosBusquedaVuelos extends JFrame {
 				}
 				//si en la tabla de vuelta no hay nada seleccionado, le da la opcion de seleccionar algo o ir a por el hotel
 				else if(tablaSurVuelta.getSelectedRow()==-1){
-					String[] opcion={"SI","NO"};
-					JOptionPane.showConfirmDialog(null, "¿Seguir sin seleccionar vuelo de vuelta?", "ALERTA", JOptionPane.YES_NO_OPTION);
-						if(opcion.equals("SI")){ //ESTO NO FUNCIONA. DEBERÍA DE LLEVARNOS A LA SIGUIENTE PREGUNTA DE "¿DESDEA RESERVAR UN HOTEL?"
+					
+					
+					int opcion = JOptionPane.showConfirmDialog(null, "¿Seguir sin seleccionar vuelo de vuelta?", "ALERTA", JOptionPane.YES_NO_OPTION);
+						if(opcion==JOptionPane.YES_OPTION){ 
 							//le pregunto a ver si quiere comprar hotel
-							JOptionPane.showConfirmDialog(null, "¿Desea reservar un hotel?","HOTEL", JOptionPane.YES_NO_OPTION);
-							if(opcion.equals("SI")){
+							System.out.println("damos paso al hotel");
+							
+							
+							int opcion2 = JOptionPane.showConfirmDialog(null, "¿Desea reservar un hotel?","HOTEL", JOptionPane.YES_NO_OPTION);
+							if(opcion2==JOptionPane.YES_OPTION){
 								BusquedaHoteles bh = new BusquedaHoteles();
 								bh.setVisible(true);
 								dispose();
 							}
-							else if(opcion.equals("NO")){
+							else{
 								GestionCompra gc= new GestionCompra();
 								gc.setVisible(true);
 								dispose();
 							}
 							
 						}
-						else{
+						else{//NO ENTRA A ESTE ELSE. SIEMPRE ENTRA EN EL "SI"
 							
 							ResultadosBusquedaVuelos rv= new ResultadosBusquedaVuelos(origen, destino, dia, mes, anio, precioMin, precioMax, diaVuelta, mesVuelta, anioVuelta);
 							rv.setVisible(true);
@@ -86,7 +92,7 @@ public class ResultadosBusquedaVuelos extends JFrame {
 						}
 				}else{//SI YA HA SELECCIONADO VUELO DE IDA Y DE VUELTA LE TIENE QUE DAR LA OPCION DE ELEGIR UN HOTEL O PASAR A LA COMPRA DEL VUELO
 					//{"ORIGEN","DESTINO","DURACION","PRECIO","HORA","DIA","MES","AÑO"};
-					System.out.println("Hola");
+					System.out.println("Seleccionado vuelo ida y vuelo vuelta");
 					numFilaIda = tablaSurIda.getSelectedRow();
 					numFilaVuelta = tablaSurVuelta.getSelectedRow();
 					TableModel modelo = tablaSurIda.getModel();
@@ -96,8 +102,20 @@ public class ResultadosBusquedaVuelos extends JFrame {
 					int precio = (int) modelo.getValueAt(numFilaIda, 3);
 					int hora = (int) modelo.getValueAt(numFilaIda, 4);
 					int dia = (int) modelo.getValueAt(numFilaIda, 5);
-					int mes = (int) modelo.getValueAt(numFilaIda, 6);
+					String mes = (String) modelo.getValueAt(numFilaIda, 6);
 					int anio = (int) modelo.getValueAt(numFilaIda, 7);
+					
+					int opcion2 = JOptionPane.showConfirmDialog(null, "¿Desea reservar un hotel?","HOTEL", JOptionPane.YES_NO_OPTION);
+					if(opcion2==JOptionPane.YES_OPTION){
+						BusquedaHoteles bh = new BusquedaHoteles();
+						bh.setVisible(true);
+						dispose();
+					}
+					else{
+						GestionCompra gc= new GestionCompra();
+						gc.setVisible(true);
+						dispose();
+					}
 				}
 //				GestionCompra vp= new GestionCompra();
 //				vp.setVisible(true);
@@ -142,7 +160,6 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		JLabel lblFechaOrig = new JLabel(String.valueOf(dia)+"-"+mes+"-"+String.valueOf(anio));
 		lblFechaOrig.setBounds(147, 5, 103, 14);
 		panelDatos.add(lblFechaOrig);
-		
 		
 		
 		JLabel lblDestino = new JLabel("Destino:");
@@ -200,7 +217,7 @@ public class ResultadosBusquedaVuelos extends JFrame {
 
 		//el origen en este caso va a ser el destino y viceversa, porque es la jtable de vuelta
        String nombrescolumnasVuelta[]= {"ORIGEN", "DESTINO", "DURACION", "PRECIO", "HORA", "DIA", "MES", "AÑO"};
-       Object datosVuelta[][] = BD.volcarDatosVuelos(destino, origen, dia, mes, anio, precioMin, precioMax);
+       Object datosVuelta[][] = BD.volcarDatosVuelos(destino, origen, diaVuelta, mesVuelta, anioVuelta, precioMin, precioMax);
        
        DefaultTableModel modelovuelta = new DefaultTableModel(datosVuelta,nombrescolumnasVuelta){
 		    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}

@@ -42,6 +42,7 @@ public class BusquedaHoteles extends JFrame {
 	 * Create the frame.
 	 */
 	public BusquedaHoteles() {
+		this.setTitle("Búsqueda hoteles");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 330);
 		contentPane = new JPanel();
@@ -119,6 +120,10 @@ public class BusquedaHoteles extends JFrame {
 		calendarSalida.setBounds(223, 69, 191, 106);
 		panel.add(calendarSalida);
 		
+		JLabel lblNHuespedes = new JLabel("N\u00BA Huespedes:");
+		lblNHuespedes.setBounds(22, 16, 106, 20);
+		panel.add(lblNHuespedes);
+		
 		/**
 		 * Mediante este botón pasamos a la siguiente ventana donde se van a mostrar los hoteles accesibles en la ciudad que hayamos seleccionado.
 		 * La fecha de salida y entrada serán cuando el usuario quiera, por lo tanto en la base de datos se introducirán estas fechas cuando seleccionemos el hotel que queremos.
@@ -134,7 +139,7 @@ public class BusquedaHoteles extends JFrame {
 				//aquí guaurdo los datos que he seleccionado en la ventana anterior(busquedaHoteles)
 				//quiero coger el destino obtenido en la ventana vuelos como lugar donde va a estar mi hotel
 				//hacer lo mismo q con el combobox de vuelos
-				ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), destino);
+				ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), destino, Integer.parseInt(comboBoxNumHuespedes.getSelectedItem().toString()));
 				vp.setVisible(true);
 				dispose();
 			}
@@ -143,9 +148,7 @@ public class BusquedaHoteles extends JFrame {
 		panel.add(btnBuscar);
 		
 		
-		JLabel lblNHuespedes = new JLabel("N\u00BA Huespedes:");
-		lblNHuespedes.setBounds(22, 16, 106, 20);
-		panel.add(lblNHuespedes);
+		
 		
 		
 	}
