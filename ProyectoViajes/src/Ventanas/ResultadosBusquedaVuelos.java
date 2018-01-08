@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -225,6 +226,8 @@ public class ResultadosBusquedaVuelos extends JFrame {
        tablaSurVuelta = new JTable(modelovuelta);
        panelTablaAbajo.setLayout(new BorderLayout());
        panelTablaAbajo.add(tablaSurVuelta.getTableHeader(), BorderLayout.NORTH);
+       DefaultTableCellRenderer dtcr= new DefaultTableCellRenderer();
+       //CAMBIAR EL FORMATO DEL TITULO DE CADA TABLA
        panelTablaAbajo.add(tablaSurVuelta, BorderLayout.CENTER);
        JScrollBar sbVuelta= new JScrollBar();
        tablaSurVuelta.add(sbVuelta);

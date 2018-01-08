@@ -91,7 +91,7 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		panelCentro.add(btnBuscarOtro);
 		
 		//INTENTANDO INTRODUCIR EL NUM DE HUESPEDES
-		JLabel lblHuespedes = new JLabel(numHuespedes);
+		JLabel lblHuespedes = new JLabel(String.valueOf(numHuespedes));
 		lblHuespedes.setBounds(37, 11, 99, 14);
 		panelCentro.add(lblHuespedes);
 		
