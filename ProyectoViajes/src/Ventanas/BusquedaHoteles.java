@@ -44,7 +44,7 @@ public class BusquedaHoteles extends JFrame {
 	public BusquedaHoteles() {
 		this.setTitle("Búsqueda hoteles");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 330);
+		setBounds(100, 100, 450, 381);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -62,12 +62,12 @@ public class BusquedaHoteles extends JFrame {
 		lblFechaVuelta.setBounds(223, 46, 87, 24);
 		panel.add(lblFechaVuelta);
 		
-		JLabel lblPrecioMin = new JLabel("Precio:");
-		lblPrecioMin.setBounds(27, 178, 48, 24);
+		JLabel lblPrecioMin = new JLabel("Precio min:");
+		lblPrecioMin.setBounds(23, 181, 68, 39);
 		panel.add(lblPrecioMin);
 		
 		JLabel precioMin = new JLabel(" ");
-		precioMin.setBounds(78, 180, 69, 20);
+		precioMin.setBounds(98, 190, 31, 20);
 		panel.add(precioMin);
 		
 		JSlider sliderPrecioMin = new JSlider();
@@ -84,25 +84,33 @@ public class BusquedaHoteles extends JFrame {
 		sliderPrecioMin.setMaximum(200);
 		sliderPrecioMin.setMajorTickSpacing(200);
 		sliderPrecioMin.setPaintTicks(true);
-		sliderPrecioMin.setBounds(127, 178, 226, 36);
+		sliderPrecioMin.setBounds(127, 185, 226, 43);
 		panel.add(sliderPrecioMin);
 		
 
-		JLabel labelPrecioMax = new JLabel("Precio:");
-		labelPrecioMax.setBounds(27, 213, 48, 24);
+		JLabel labelPrecioMax = new JLabel("Precio max:");
+		labelPrecioMax.setBounds(23, 226, 68, 39);
 		panel.add(labelPrecioMax);
 		
 		JLabel precioMax = new JLabel(" ");
-		precioMax.setBounds(78, 215, 69, 20);
+		precioMax.setBounds(98, 235, 31, 20);
 		panel.add(precioMax);
 		
 		JSlider sliderPrecioMax = new JSlider();
 		sliderPrecioMax.setValue(0);
-		sliderPrecioMax.setPaintTicks(true);
+		sliderPrecioMax.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				int v = sliderPrecioMax.getValue();
+				String s = String.valueOf(v);
+				precioMax.setText(s);
+				
+			}
+		});
 		sliderPrecioMax.setPaintLabels(true);
 		sliderPrecioMax.setMaximum(200);
 		sliderPrecioMax.setMajorTickSpacing(200);
-		sliderPrecioMax.setBounds(127, 215, 226, 36);
+		sliderPrecioMax.setPaintTicks(true);
+		sliderPrecioMax.setBounds(127, 231, 226, 43);
 		panel.add(sliderPrecioMax);
 		
 		
@@ -132,20 +140,24 @@ public class BusquedaHoteles extends JFrame {
 		 * */
 		
 		
-		JButton btnBuscar = new JButton("Buscar");
+		JButton btnBuscar = new JButton("Aceptar");
+		btnBuscar.setBounds(162, 283, 89, 23);
+		panel.add(btnBuscar);
 		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
 				//resumen que sale en la siguiente  ventana en función de lo que hayamos seleccionado en la anterior
 				//aquí guaurdo los datos que he seleccionado en la ventana anterior(busquedaHoteles)
 				//quiero coger el destino obtenido en la ventana vuelos como lugar donde va a estar mi hotel
 				//hacer lo mismo q con el combobox de vuelos
-				ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), destino, Integer.parseInt(comboBoxNumHuespedes.getSelectedItem().toString()));
+				ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), sliderPrecioMax.getValue(), calendarEntrada.getDayChooser().getDay(), calendarEntrada.getMonthChooser().getMonth(), calendarEntrada.getYearChooser().getYear(), calendarSalida.getDayChooser().getDay(), calendarSalida.getMonthChooser().getMonth(), calendarSalida.getYearChooser().getYear(), comboBoxNumHuespedes.getSelectedItem());
 				vp.setVisible(true);
 				dispose();
+				
 			}
 		});
-		btnBuscar.setBounds(179, 249, 89, 23);
-		panel.add(btnBuscar);
 		
 		
 		

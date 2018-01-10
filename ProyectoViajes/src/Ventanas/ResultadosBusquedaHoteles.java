@@ -3,6 +3,7 @@ package Ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,8 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import BaseDeDatos.BD;
 import javax.swing.JTextField;
@@ -19,8 +22,9 @@ import javax.swing.JTextField;
 public class ResultadosBusquedaHoteles extends JFrame {
 
 	private JPanel contentPane;
-	private int precio;
-	private String lugar;
+	private JPanel panelCentro;
+	//private int precio;
+	//private String lugar;
 	/**
 	 * Launch the application.
 	 */
@@ -40,10 +44,8 @@ public class ResultadosBusquedaHoteles extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ResultadosBusquedaHoteles(int precio, String lugar, int numHuespedes) {
+	public ResultadosBusquedaHoteles(int precioMin, int precioMax, int diaVuelta, String mesVuelta, int anioVuelta, int diaIda, String mesIda, int anioIda, int numHuespedes) {
 		this.setTitle("Resultado búsqueda hoteles");
-		this.precio = precio;
-		this.lugar = lugar;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -64,7 +66,7 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		JPanel panelIzda = new JPanel();
 		contentPane.add(panelIzda, BorderLayout.WEST);
 		
-		JPanel panelCentro = new JPanel();
+		panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		panelCentro.setLayout(null);
 		
@@ -117,15 +119,47 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		JLabel lblSalida = new JLabel("New label");
 		lblSalida.setBounds(318, 35, 46, 14);
 		panelCentro.add(lblSalida);
+				
+		
+		
+		
+		JPanel panelTabla = new JPanel();
+		panelCentro.add(panelTabla);
+		panelTabla.setLayout(new GridLayout(0, 1));
+
+
+		String nombresColumnas[] = {"PRECIO","LUGAR","NOMBRE"}; //array con los titulos de cada columna
+		Object datos[][] = BD.volcarDatosHoteles(precioMin, precioMax, diaIda, mesIda, anioIda, diaVuelta, mesVuelta, anioVuelta, numHuespedes); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
+		
+		//cancelo la edición de las celdas mediante este método
+				DefaultTableModel modelo = new DefaultTableModel(datos,nombresColumnas){
+				    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
+				};
+		
+		JTable tablaSur = new JTable(modelo); //metemos en una jtable el modelo con los arrays (titulo y celdas)
+		panelTabla.setLayout(new BorderLayout());
+		panelTabla.add(tablaSur.getTableHeader(), BorderLayout.NORTH); 
+		panelTabla.add(tablaSur, BorderLayout.CENTER);
+		JScrollBar sb= new JScrollBar();
+		tablaSur.add(sb);	
+
+		
+		
+		
+		
 	}
 	
-
-
-	String nombresColumnas[] = {"PRECIO","LUGAR","NOMBRE"}; //array con los titulos de cada columna
-	//da error porque el combobox destino de la clase busquedaHoteles no está bien
-	Object datos[][] = BD.volcarDatosHoteles(precio, lugar); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
-	JTable tablaSur = new JTable(datos,nombresColumnas); //metemos en una jtable estos arrays
-//	panelTabla.setLayout(new BorderLayout());
-//	panelTabla.add(tablaSur.getTableHeader(), BorderLayout.NORTH); 
-//	panelTabla.add(tablaSur, BorderLayout.CENTER);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -221,11 +221,25 @@ public class BD {
 		}
 		
 		
+		public static int contarHoteles(int precio, String lugar, String nombre){
+			String query = "SELECT COUNT(*) FROM hoteles WHERE Precio='"+precio+"' AND Lugar='"+lugar+"' AND Nombre='"+nombre+"'";
+            int cont=0;
+			try {
+				ResultSet rs = stmt.executeQuery(query);
+				cont = rs.getInt(1);
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            return cont;
+		}
 		
 		
-		
-		public static Object[][] volcarDatosHoteles(int precio, String lugar) {
-            Object [][] datos = new Object[1000][3];
+		public static Object[][] volcarDatosHoteles(int precio, String lugar, String nombre) {
+            int cont = contarHoteles(precio, lugar, nombre);
+			Object [][] datos =new Object[cont][3];
+            int i=0;
             //cogemos mediante un select los vuelos disponibles respecto a los datos que hayamos elegido
             //SELECT * FROM vuelos WHERE VentanaPrincipal.origen=opciones1.getOrigenSeleccionado AND VentanaPrincipal.destino=opciones2.getDestinoSeleccionado AND precio=precio.getValor AND dia,mes,año...
             String query = "SELECT * FROM hoteles WHERE precio='"+precio+"' AND lugar='"+lugar+"'";
@@ -235,13 +249,13 @@ public class BD {
             
             try {
                             ResultSet rs = stmt.executeQuery(query);
-                            int i=0;
+                            int j=0;
                             while(rs.next()){
                             				
-                            				datos[i][0] = new Double(rs.getDouble("precio"));
-                                            datos[i][1] = rs.getString("lugar");                                            
-                                            datos[i][2] = rs.getString("nombre");
-                                            i++;
+                            				datos[j][0] = new Integer(rs.getInt("precio"));
+                                            datos[j][1] = rs.getString("lugar");                                            
+                                            datos[j][2] = rs.getString("nombre");
+                                            j++;
                             }
                             rs.close();
             } catch (SQLException e) {
