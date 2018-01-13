@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.border.EmptyBorder;
@@ -152,10 +153,15 @@ public class BusquedaHoteles extends JFrame {
 				//aquí guaurdo los datos que he seleccionado en la ventana anterior(busquedaHoteles)
 				//quiero coger el destino obtenido en la ventana vuelos como lugar donde va a estar mi hotel
 				//hacer lo mismo q con el combobox de vuelos
-				ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), sliderPrecioMax.getValue(), calendarEntrada.getDayChooser().getDay(), calendarEntrada.getMonthChooser().getMonth(), calendarEntrada.getYearChooser().getYear(), calendarSalida.getDayChooser().getDay(), calendarSalida.getMonthChooser().getMonth(), calendarSalida.getYearChooser().getYear(), comboBoxNumHuespedes.getSelectedItem());
-				vp.setVisible(true);
-				dispose();
-				
+				if(sliderPrecioMin.getValue() > sliderPrecioMax.getValue()) {
+					JOptionPane.showMessageDialog(null,"El precio mínimo no puede ser mayor que el precio máximo");
+				}
+				else{
+					//El error que da es por que necesitamos pasarl el valor del destino al metodo para que en resultados busqueda hoteles no nos de error
+					ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), sliderPrecioMax.getValue(), calendarEntrada.getDayChooser().getDay(), String.valueOf(calendarEntrada.getMonthChooser().getMonth()+1), calendarEntrada.getYearChooser().getYear(), calendarSalida.getDayChooser().getDay(), String.valueOf(calendarSalida.getMonthChooser().getMonth()+1), calendarSalida.getYearChooser().getYear(), Integer.parseUnsignedInt((String) comboBoxNumHuespedes.getSelectedItem()));
+					vp.setVisible(true);
+					dispose();
+				}
 			}
 		});
 		

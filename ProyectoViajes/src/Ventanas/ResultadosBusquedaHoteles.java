@@ -44,7 +44,7 @@ public class ResultadosBusquedaHoteles extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ResultadosBusquedaHoteles(int precioMin, int precioMax, int diaVuelta, String mesVuelta, int anioVuelta, int diaIda, String mesIda, int anioIda, int numHuespedes) {
+	public ResultadosBusquedaHoteles(int precioMin, int precioMax, int diaVuelta, String mesVuelta, int anioVuelta, int diaIda, String mesIda, int anioIda, int numHuespedes, String lugar,String nombre) {
 		this.setTitle("Resultado búsqueda hoteles");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -129,8 +129,7 @@ public class ResultadosBusquedaHoteles extends JFrame {
 
 
 		String nombresColumnas[] = {"PRECIO","LUGAR","NOMBRE"}; //array con los titulos de cada columna
-		Object datos[][] = BD.volcarDatosHoteles(precioMin, precioMax, diaIda, mesIda, anioIda, diaVuelta, mesVuelta, anioVuelta, numHuespedes); //array donde voy a volcar los datos de la bd que se correspondan con los datos seleccionados anteriormente
-		
+		Object datos[][] = BD.volcarDatosHoteles(precioMin, precioMax, lugar, nombre);
 		//cancelo la edición de las celdas mediante este método
 				DefaultTableModel modelo = new DefaultTableModel(datos,nombresColumnas){
 				    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}

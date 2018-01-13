@@ -221,8 +221,8 @@ public class BD {
 		}
 		
 		
-		public static int contarHoteles(int precio, String lugar, String nombre){
-			String query = "SELECT COUNT(*) FROM hoteles WHERE Precio='"+precio+"' AND Lugar='"+lugar+"' AND Nombre='"+nombre+"'";
+		public static int contarHoteles(int precioMin , int precioMax, String lugar, String nombre){
+			String query = "SELECT COUNT(*) FROM hoteles WHERE precio>='"+precioMin +"' AND precio<='"+precioMax+"' AND Lugar='"+lugar+"' AND Nombre='"+nombre+"'";
             int cont=0;
 			try {
 				ResultSet rs = stmt.executeQuery(query);
@@ -236,17 +236,15 @@ public class BD {
 		}
 		
 		
-		public static Object[][] volcarDatosHoteles(int precio, String lugar, String nombre) {
-            int cont = contarHoteles(precio, lugar, nombre);
-			Object [][] datos =new Object[cont][3];
+		public static Object[][] volcarDatosHoteles(int precioMin , int precioMax, String lugar, String nombre) {
+            int cont = contarHoteles(precioMin, precioMax, lugar, nombre);
+			Object [][] datos =new Object[cont][5];
             int i=0;
             //cogemos mediante un select los vuelos disponibles respecto a los datos que hayamos elegido
             //SELECT * FROM vuelos WHERE VentanaPrincipal.origen=opciones1.getOrigenSeleccionado AND VentanaPrincipal.destino=opciones2.getDestinoSeleccionado AND precio=precio.getValor AND dia,mes,año...
-            String query = "SELECT * FROM hoteles WHERE precio='"+precio+"' AND lugar='"+lugar+"'";
+            String query = "SELECT * FROM hoteles WHERE precio>='"+precioMin+"' AND precio<='"+precioMax+"' AND lugar='"+lugar+"' AND nombre='"+nombre+"'";
             //System.out.println("dia origen: "+dia+"mes origen: "+mes+"año origen: "+anio);
 
-           
-            
             try {
                             ResultSet rs = stmt.executeQuery(query);
                             int j=0;
@@ -263,7 +261,6 @@ public class BD {
                             e.printStackTrace();
             }
             return datos;
-
 
 		}
 		
