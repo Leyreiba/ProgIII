@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import BaseDeDatos.BD;
 import javax.swing.JTextField;
+import java.awt.Font;
 
 public class ResultadosBusquedaHoteles extends JFrame {
 
@@ -60,6 +61,26 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 		
+		JButton btnBuscarOtro = new JButton("Buscar otro");
+		panelSur.add(btnBuscarOtro);
+		
+		JButton btnComprar = new JButton("Comprar");
+		panelSur.add(btnComprar);
+		btnComprar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FinCompra vp= new FinCompra();
+				vp.setVisible(true);
+				dispose();
+			}
+		});
+		btnBuscarOtro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BusquedaHoteles vp= new BusquedaHoteles();
+				vp.setVisible(true);
+				dispose();
+			}
+		});
+		
 		JPanel panelDcha = new JPanel();
 		contentPane.add(panelDcha, BorderLayout.EAST);
 		
@@ -69,64 +90,18 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		panelCentro.setLayout(null);
-		
-		JButton btnComprar = new JButton("Comprar");
-		btnComprar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FinCompra vp= new FinCompra();
-				vp.setVisible(true);
-				dispose();
-			}
-		});
-		btnComprar.setBounds(228, 197, 108, 23);
-		panelCentro.add(btnComprar);
-		
-		JButton btnBuscarOtro = new JButton("Buscar otro");
-		btnBuscarOtro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BusquedaHoteles vp= new BusquedaHoteles();
-				vp.setVisible(true);
-				dispose();
-			}
-		});
-		btnBuscarOtro.setBounds(64, 197, 124, 23);
-		panelCentro.add(btnBuscarOtro);
-		
-		//INTENTANDO INTRODUCIR EL NUM DE HUESPEDES
-		JLabel lblHuespedes = new JLabel(String.valueOf(numHuespedes));
-		lblHuespedes.setBounds(37, 11, 99, 14);
-		panelCentro.add(lblHuespedes);
-		
-		//EL NUMERO QUE HAYAMOS SELECCIONADO EN LA VENTANA ANTERIOR
-		JLabel lblNumHuespedes = new JLabel("New label");
-		lblNumHuespedes.setBounds(142, 11, 46, 14);
-		panelCentro.add(lblNumHuespedes);
-		
-		JLabel lblFechaEntrada = new JLabel("Fecha Entrada:");
-		lblFechaEntrada.setBounds(228, 11, 75, 14);
-		panelCentro.add(lblFechaEntrada);
-		
-		JLabel lblFechaSalida = new JLabel("Fecha Salida:");
-		lblFechaSalida.setBounds(228, 35, 75, 14);
-		panelCentro.add(lblFechaSalida);
-		
-		//LA FECHA DE ENTRADA ES LA MISMA QUE LA FECHA DEL VUELO DE IDA
-		JLabel lblEntrada = new JLabel(String.valueOf(diaIda)+"-"+mesIda+"-"+String.valueOf(anioIda));
-		lblEntrada.setBounds(318, 11, 46, 14);
-		panelCentro.add(lblEntrada);
-		
-		//LA FECHA DE SALIDA ES LA MISMA QUE LA FECHA DEL VUELO DE VUELTA
-		JLabel lblSalida = new JLabel(String.valueOf(diaVuelta)+"-"+mesVuelta+"-"+String.valueOf(anioVuelta));
-		lblSalida.setBounds(318, 35, 46, 14);
-		panelCentro.add(lblSalida);
 				
 		
 		
+		JPanel panelDatos = new JPanel();
+		panelDatos.setBounds(0, 0, 404, 105);
+		panelCentro.add(panelDatos);
+		panelDatos.setLayout(null);
 		
 		JPanel panelTabla = new JPanel();
+		panelTabla.setBounds(0, 103, 404, 105);
 		panelCentro.add(panelTabla);
-		panelTabla.setLayout(new GridLayout(0, 1));
-
+		
 
 		String nombresColumnas[] = {"PRECIO","LUGAR","NOMBRE"}; //array con los titulos de cada columna
 		Object datos[][] = BD.volcarDatosHoteles(precioMin, precioMax, destino);
@@ -143,22 +118,40 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		tablaSur.add(sb);	
 
 		
+				
+		//INTENTANDO INTRODUCIR EL NUM DE HUESPEDES
+		JLabel lblHuespedes = new JLabel(String.valueOf(numHuespedes));
+		lblHuespedes.setBounds(147, 6, 17, 14);
+		panelDatos.add(lblHuespedes);
+		
+		//EL NUMERO QUE HAYAMOS SELECCIONADO EN LA VENTANA ANTERIOR
+		JLabel lblNumHuespedes = new JLabel("N\u00FAmero de Huespedes:");
+		lblNumHuespedes.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
+		lblNumHuespedes.setBounds(11, 5, 140, 14);
+		panelDatos.add(lblNumHuespedes);
+		
+		JLabel lblFechaEntrada = new JLabel("Fecha Entrada:");
+		lblFechaEntrada.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
+		lblFechaEntrada.setBounds(198, 5, 88, 14);
+		panelDatos.add(lblFechaEntrada);
+		
+		JLabel lblFechaSalida = new JLabel("Fecha Salida:");
+		lblFechaSalida.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
+		lblFechaSalida.setBounds(198, 30, 88, 14);
+		panelDatos.add(lblFechaSalida);
+		
+		//LA FECHA DE ENTRADA ES LA MISMA QUE LA FECHA DEL VUELO DE IDA
+		JLabel lblEntrada = new JLabel(String.valueOf(diaIda)+"-"+mesIda+"-"+String.valueOf(anioIda));
+		lblEntrada.setBounds(296, 30, 75, 14);
+		panelDatos.add(lblEntrada);
+		
+		//LA FECHA DE SALIDA ES LA MISMA QUE LA FECHA DEL VUELO DE VUELTA
+		JLabel lblSalida = new JLabel(String.valueOf(diaVuelta)+"-"+mesVuelta+"-"+String.valueOf(anioVuelta));
+		lblSalida.setBounds(296, 6, 75, 14);
+		panelDatos.add(lblSalida);
+		
 		
 		
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
