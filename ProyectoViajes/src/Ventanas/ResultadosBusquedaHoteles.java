@@ -44,7 +44,7 @@ public class ResultadosBusquedaHoteles extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ResultadosBusquedaHoteles(int precioMin, int precioMax, int diaVuelta, String mesVuelta, int anioVuelta, int diaIda, String mesIda, int anioIda, int numHuespedes, String lugar,String nombre) {
+	public ResultadosBusquedaHoteles(int precioMin, int precioMax, int diaVuelta, String mesVuelta, int anioVuelta, int diaIda, String mesIda, int anioIda, int numHuespedes, String destino) {
 		this.setTitle("Resultado búsqueda hoteles");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,12 +111,12 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		panelCentro.add(lblFechaSalida);
 		
 		//LA FECHA DE ENTRADA ES LA MISMA QUE LA FECHA DEL VUELO DE IDA
-		JLabel lblEntrada = new JLabel("New label");
+		JLabel lblEntrada = new JLabel(String.valueOf(diaIda)+"-"+mesIda+"-"+String.valueOf(anioIda));
 		lblEntrada.setBounds(318, 11, 46, 14);
 		panelCentro.add(lblEntrada);
 		
 		//LA FECHA DE SALIDA ES LA MISMA QUE LA FECHA DEL VUELO DE VUELTA
-		JLabel lblSalida = new JLabel("New label");
+		JLabel lblSalida = new JLabel(String.valueOf(diaVuelta)+"-"+mesVuelta+"-"+String.valueOf(anioVuelta));
 		lblSalida.setBounds(318, 35, 46, 14);
 		panelCentro.add(lblSalida);
 				
@@ -129,11 +129,11 @@ public class ResultadosBusquedaHoteles extends JFrame {
 
 
 		String nombresColumnas[] = {"PRECIO","LUGAR","NOMBRE"}; //array con los titulos de cada columna
-		Object datos[][] = BD.volcarDatosHoteles(precioMin, precioMax, lugar, nombre);
+		Object datos[][] = BD.volcarDatosHoteles(precioMin, precioMax, destino);
 		//cancelo la edición de las celdas mediante este método
-				DefaultTableModel modelo = new DefaultTableModel(datos,nombresColumnas){
+		DefaultTableModel modelo = new DefaultTableModel(datos,nombresColumnas){
 				    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
-				};
+		};
 		
 		JTable tablaSur = new JTable(modelo); //metemos en una jtable el modelo con los arrays (titulo y celdas)
 		panelTabla.setLayout(new BorderLayout());

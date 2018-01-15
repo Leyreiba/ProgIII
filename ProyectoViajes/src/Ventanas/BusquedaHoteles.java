@@ -159,7 +159,7 @@ public class BusquedaHoteles extends JFrame {
 				else{
 					//El error que da es por que necesitamos pasarl el valor del destino al metodo para que en resultados busqueda hoteles no nos de error
 					//Hay que coger los valores de lugar y el nombre del hotel
-					ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), sliderPrecioMax.getValue(), calendarEntrada.getDayChooser().getDay(), String.valueOf(calendarEntrada.getMonthChooser().getMonth()+1), calendarEntrada.getYearChooser().getYear(), calendarSalida.getDayChooser().getDay(), String.valueOf(calendarSalida.getMonthChooser().getMonth()+1), calendarSalida.getYearChooser().getYear(), Integer.parseUnsignedInt((String) comboBoxNumHuespedes.getSelectedItem()));
+					ResultadosBusquedaHoteles vp= new ResultadosBusquedaHoteles(sliderPrecioMin.getValue(), sliderPrecioMax.getValue(), calendarEntrada.getDayChooser().getDay(), String.valueOf(calendarEntrada.getMonthChooser().getMonth()+1), calendarEntrada.getYearChooser().getYear(), calendarSalida.getDayChooser().getDay(), String.valueOf(calendarSalida.getMonthChooser().getMonth()+1), calendarSalida.getYearChooser().getYear(), Integer.parseUnsignedInt((String) comboBoxNumHuespedes.getSelectedItem()),destino);
 					vp.setVisible(true);
 					dispose();
 				}
@@ -176,5 +176,9 @@ public class BusquedaHoteles extends JFrame {
 	
 	public static void setDestino(String dest){
 		destino=dest;
+	}
+
+	public static String getDestino() {
+		return destino;
 	}
 }
