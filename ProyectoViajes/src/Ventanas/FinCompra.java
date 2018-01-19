@@ -62,7 +62,7 @@ public class FinCompra extends JFrame {
 		lblHotel.setBounds(15, 101, 69, 20);
 		panel_1.add(lblHotel);
 		
-		JLabel lblDatosHotel = new JLabel("Datos Hotel");
+		JLabel lblDatosHotel = new JLabel("");
 		lblDatosHotel.setBounds(99, 101, 102, 20);
 		panel_1.add(lblDatosHotel);
 		
@@ -93,5 +93,9 @@ public class FinCompra extends JFrame {
 		});
 		btnVolver.setBounds(15, 0, 115, 29);
 		panel.add(btnVolver);
+		
+		JLabel lblNombreUsuario = new JLabel("New label");
+		lblNombreUsuario.setBounds(98, 29, 103, 20);
+		panel_1.add(lblNombreUsuario);
 	}
 }

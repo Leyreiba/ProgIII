@@ -148,8 +148,8 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		
 		
 		JLabel lblOrigen = new JLabel("Origen:");
-		lblOrigen.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
 		lblOrigen.setBounds(18, 5, 61, 14);
+		lblOrigen.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
 		panelDatos.add(lblOrigen);
 		
 		//volcar el valor elegido para el origen
@@ -159,13 +159,13 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		
 		//volcar el valor elegido para la fecha origen
 		JLabel lblFechaOrig = new JLabel(String.valueOf(dia)+"-"+mes+"-"+String.valueOf(anio));
-		lblFechaOrig.setBounds(147, 5, 103, 14);
+		lblFechaOrig.setBounds(147, 5, 105, 14);
 		panelDatos.add(lblFechaOrig);
 		
 		
 		JLabel lblDestino = new JLabel("Destino:");
-		lblDestino.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
 		lblDestino.setBounds(18, 31, 55, 14);
+		lblDestino.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
 		panelDatos.add(lblDestino);
 		
 		//volcar el valor elegido para el destino
@@ -176,7 +176,7 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		//volcar el valor elegido para la fecha destino (respecto a los datos que hayamos introducido en el calendario de vuelta)
 		//quiero crear una opción que cuando le digamos que solo queremos vuelo de ida ponga a no visible estos datos de vuelta y el calendario de vuelta en la ventana anterior
 		JLabel lblFechaDest = new JLabel(String.valueOf(diaVuelta)+"-"+mesVuelta+"-"+String.valueOf(anioVuelta));
-		lblFechaOrig.setBounds(147, 5, 103, 14);
+		lblFechaDest.setBounds(147, 31, 105, 14);
 		panelDatos.add(lblFechaDest);
 		
 

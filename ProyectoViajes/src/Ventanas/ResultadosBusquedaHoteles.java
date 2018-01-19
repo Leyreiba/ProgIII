@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -63,16 +64,7 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		
 		JButton btnBuscarOtro = new JButton("Buscar otro");
 		panelSur.add(btnBuscarOtro);
-		
-		JButton btnComprar = new JButton("Comprar");
-		panelSur.add(btnComprar);
-		btnComprar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FinCompra vp= new FinCompra();
-				vp.setVisible(true);
-				dispose();
-			}
-		});
+
 		btnBuscarOtro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BusquedaHoteles vp= new BusquedaHoteles();
@@ -115,20 +107,34 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		panelTabla.add(tablaSur.getTableHeader(), BorderLayout.NORTH); 
 		panelTabla.add(tablaSur, BorderLayout.CENTER);
 		JScrollBar sb= new JScrollBar();
-		tablaSur.add(sb);	
-
+		tablaSur.add(sb);		
 		
-				
-		//INTENTANDO INTRODUCIR EL NUM DE HUESPEDES
-		JLabel lblHuespedes = new JLabel(String.valueOf(numHuespedes));
-		lblHuespedes.setBounds(147, 6, 17, 14);
-		panelDatos.add(lblHuespedes);
 		
-		//EL NUMERO QUE HAYAMOS SELECCIONADO EN LA VENTANA ANTERIOR
+		
+		JButton btnComprar = new JButton("Comprar");
+		panelSur.add(btnComprar);
+		btnComprar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//quiero pasarle el nombre de usuario con el que se ha registrado, los datos del vuelos, el nombre del hotel, el precio del vuelo y el precio del hotel
+				FinCompra vp= new FinCompra();
+				vp.setVisible(true);
+				dispose();
+			}
+		});
+		
+		
+		
+		//NUMERO DE HUESPEDES
 		JLabel lblNumHuespedes = new JLabel("N\u00FAmero de Huespedes:");
 		lblNumHuespedes.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
 		lblNumHuespedes.setBounds(11, 5, 140, 14);
 		panelDatos.add(lblNumHuespedes);
+				
+		//INTRODUCIMOS EL NUMERO DE HUESPEDES QUE EL USUARIO HAYA ELEGIDO
+		JLabel lblHuespedes = new JLabel(String.valueOf(numHuespedes));
+		lblHuespedes.setBounds(147, 6, 17, 14);
+		panelDatos.add(lblHuespedes);
+		
 		
 		JLabel lblFechaEntrada = new JLabel("Fecha Entrada:");
 		lblFechaEntrada.setFont(new Font("Segoe UI Black", Font.PLAIN, 11));
