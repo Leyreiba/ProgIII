@@ -24,24 +24,9 @@ public class BusquedaHoteles extends JFrame {
 
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BusquedaHoteles frame = new BusquedaHoteles();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
+	
 	public BusquedaHoteles() {
 		this.setTitle("Búsqueda hoteles");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -123,10 +108,17 @@ public class BusquedaHoteles extends JFrame {
 
 		JCalendar calendarEntrada = new JCalendar();
 		calendarEntrada.setBounds(23, 69, 190, 106);
+		calendarEntrada.getDayChooser().setDay(BusquedaVuelos.diaIda);
+		calendarEntrada.getMonthChooser().setMonth(BusquedaVuelos.mesIda);
+		calendarEntrada.getYearChooser().setYear(BusquedaVuelos.anioIda);
 		panel.add(calendarEntrada);
 		
 		JCalendar calendarSalida = new JCalendar();
 		calendarSalida.setBounds(223, 69, 191, 106);
+		calendarSalida.getDayChooser().setDay(BusquedaVuelos.diaVuelta);
+		calendarSalida.getMonthChooser().setMonth(BusquedaVuelos.mesVuelta);
+		calendarSalida.getYearChooser().setYear(BusquedaVuelos.anioVuelta);
+	
 		panel.add(calendarSalida);
 		
 		JLabel lblNHuespedes = new JLabel("N\u00BA Huespedes:");

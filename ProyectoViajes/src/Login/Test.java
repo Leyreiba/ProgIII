@@ -1,3 +1,4 @@
+package Login;
 import static org.junit.Assert.*;
 
 
@@ -14,6 +15,7 @@ public class Test extends TestCase{
 	public void test() {
 		int result= BD.existeUsuario("leyre", "leyre");
 		assertEquals(2, result);
+
 	}
 
 }

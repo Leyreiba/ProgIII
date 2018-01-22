@@ -1,3 +1,4 @@
+package Login;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -33,6 +34,7 @@ public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textNombre;
+	public static String n;
 	private JPasswordField textContrasenia;
 	//public static BD bd;
 
@@ -56,7 +58,7 @@ public class Login extends JFrame {
 		textNombre.setText("");
 		textContrasenia.setText("");
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -80,6 +82,7 @@ public class Login extends JFrame {
 			e.printStackTrace();
 		}
 		
+		//registro de todo lo que ha ido sucediendo durante todo el funcionamiento del programa. Esto lo guardamos en un fichero(fileHandler)
 		SimpleFormatter simpleformatter= new SimpleFormatter();
 		fileHandler.setFormatter(simpleformatter);
 		Logger logger= Logger.getLogger("Logger");
@@ -147,7 +150,7 @@ public class Login extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				String n= textNombre.getText();
+				n= textNombre.getText();
 				String c= textContrasenia.getText();
 				if(n.equals("")){
 					JOptionPane.showMessageDialog(null, "Introduzca un nombre");

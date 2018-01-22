@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -25,6 +26,7 @@ public class ResultadosBusquedaHoteles extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panelCentro;
+	public static String nom;
 	//private int precio;
 	//private String lugar;
 	/**
@@ -82,7 +84,6 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		panelCentro.setLayout(null);
-				
 		
 		
 		JPanel panelDatos = new JPanel();
@@ -105,9 +106,8 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		JTable tablaSur = new JTable(modelo); //metemos en una jtable el modelo con los arrays (titulo y celdas)
 		panelTabla.setLayout(new BorderLayout());
 		panelTabla.add(tablaSur.getTableHeader(), BorderLayout.NORTH); 
-		panelTabla.add(tablaSur, BorderLayout.CENTER);
-		JScrollBar sb= new JScrollBar();
-		tablaSur.add(sb);		
+		JScrollPane sb= new JScrollPane(tablaSur);
+		panelTabla.add(sb, BorderLayout.CENTER);
 		
 		
 		
@@ -115,10 +115,14 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		panelSur.add(btnComprar);
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//quiero pasarle el nombre de usuario con el que se ha registrado, los datos del vuelos, el nombre del hotel, el precio del vuelo y el precio del hotel
-				FinCompra vp= new FinCompra();
-				vp.setVisible(true);
-				dispose();
+				if(tablaSur.getSelectedRow()!=-1){
+					nom = (String)tablaSur.getModel().getValueAt(tablaSur.getSelectedRow(), 2);
+					//quiero pasarle el nombre de usuario con el que se ha registrado, los datos del vuelos, el nombre del hotel, el precio del vuelo y el precio del hotel
+					FinCompra vp= new FinCompra();
+					vp.setVisible(true);
+					dispose();
+				}else
+					JOptionPane.showMessageDialog(null, "Para poder hacer la compra primero tienes que seleccionar un hotel");
 			}
 		});
 		

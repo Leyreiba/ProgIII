@@ -9,9 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import Login.Login;
 
 public class FinCompra extends JFrame {
-
 	private JPanel contentPane;
 
 	/**
@@ -62,7 +62,7 @@ public class FinCompra extends JFrame {
 		lblHotel.setBounds(15, 101, 69, 20);
 		panel_1.add(lblHotel);
 		
-		JLabel lblDatosHotel = new JLabel("");
+		JLabel lblDatosHotel = new JLabel(ResultadosBusquedaHoteles.nom);
 		lblDatosHotel.setBounds(99, 101, 102, 20);
 		panel_1.add(lblDatosHotel);
 		
@@ -93,8 +93,7 @@ public class FinCompra extends JFrame {
 		});
 		btnVolver.setBounds(15, 0, 115, 29);
 		panel.add(btnVolver);
-		
-		JLabel lblNombreUsuario = new JLabel("New label");
+		JLabel lblNombreUsuario = new JLabel(Login.n);
 		lblNombreUsuario.setBounds(98, 29, 103, 20);
 		panel_1.add(lblNombreUsuario);
 	}
