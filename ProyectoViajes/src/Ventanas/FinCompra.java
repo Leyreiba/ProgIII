@@ -54,47 +54,41 @@ public class FinCompra extends JFrame {
 		lblVuelo.setBounds(15, 65, 69, 20);
 		panel_1.add(lblVuelo);
 		
-		JLabel lblDatosVuelo = new JLabel("Datos Vuelo");
-		lblDatosVuelo.setBounds(99, 65, 102, 20);
+		JLabel lblDatosVuelo = new JLabel(BusquedaVuelos.Fecha);
+		lblDatosVuelo.setBounds(81, 65, 319, 20);
 		panel_1.add(lblDatosVuelo);
 		
-		JLabel lblHotel = new JLabel("Hotel:");
-		lblHotel.setBounds(15, 101, 69, 20);
-		panel_1.add(lblHotel);
+		if(ResultadosBusquedaVuelos.hotel){
+			JLabel lblHotel = new JLabel("Hotel:");
+			lblHotel.setBounds(15, 101, 69, 20);
+			panel_1.add(lblHotel);
+			
+		}
 		
 		JLabel lblDatosHotel = new JLabel(ResultadosBusquedaHoteles.nom);
-		lblDatosHotel.setBounds(99, 101, 102, 20);
+		lblDatosHotel.setBounds(81, 101, 177, 20);
 		panel_1.add(lblDatosHotel);
 		
 		JLabel lblTotal = new JLabel("Total:");
-		lblTotal.setBounds(99, 137, 69, 20);
+		lblTotal.setBounds(15, 139, 69, 20);
 		panel_1.add(lblTotal);
 		
-		JLabel lblPreciototal = new JLabel("PrecioTotal");
-		lblPreciototal.setBounds(183, 137, 102, 20);
+		//sumamos el precio del hotel + el precio del vuelo de ida + el precio del vuelo de vuelta
+		JLabel lblPreciototal = new JLabel(ResultadosBusquedaHoteles.precio+ResultadosBusquedaVuelos.preciovueloida+ResultadosBusquedaVuelos.preciovuelovuelta);
+		lblPreciototal.setBounds(59, 139, 102, 20);
 		panel_1.add(lblPreciototal);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 202, 418, 32);
+		panel.setBounds(0, 202, 424, 32);
 		panel_1.add(panel);
 		panel.setLayout(null);
 		
 		JButton btnPagar = new JButton("Pagar");
-		btnPagar.setBounds(278, 0, 73, 29);
+		btnPagar.setBounds(165, 0, 73, 29);
 		panel.add(btnPagar);
 		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				GestionCompra vp= new GestionCompra();
-				vp.setVisible(true);
-				dispose();
-			}
-		});
-		btnVolver.setBounds(15, 0, 115, 29);
-		panel.add(btnVolver);
 		JLabel lblNombreUsuario = new JLabel(Login.n);
-		lblNombreUsuario.setBounds(98, 29, 103, 20);
+		lblNombreUsuario.setBounds(80, 29, 103, 20);
 		panel_1.add(lblNombreUsuario);
 	}
 }

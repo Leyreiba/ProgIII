@@ -27,6 +27,7 @@ public class ResultadosBusquedaHoteles extends JFrame {
 	private JPanel contentPane;
 	private JPanel panelCentro;
 	public static String nom;
+	public static int precio;
 	//private int precio;
 	//private String lugar;
 	/**
@@ -116,7 +117,9 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		btnComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tablaSur.getSelectedRow()!=-1){
+					//selecciono el nombre y el precio del hotel que hemos seleccionado para luego mostrar esta información en la ventana FinCompra
 					nom = (String)tablaSur.getModel().getValueAt(tablaSur.getSelectedRow(), 2);
+					precio= (int) tablaSur.getModel().getValueAt(tablaSur.getSelectedRow(), 0);
 					//quiero pasarle el nombre de usuario con el que se ha registrado, los datos del vuelos, el nombre del hotel, el precio del vuelo y el precio del hotel
 					FinCompra vp= new FinCompra();
 					vp.setVisible(true);

@@ -31,6 +31,8 @@ public class BusquedaVuelos extends JFrame {
 	private static JSlider sliderPrecioMax;
 	private static JSlider sliderPrecioMin;
 	public static int diaIda, mesIda, anioIda, diaVuelta, mesVuelta, anioVuelta;
+	public static String Fecha;
+
 
 	/**
 	 * Launch the application.
@@ -167,6 +169,7 @@ public class BusquedaVuelos extends JFrame {
 				else {
 					//muestro en la ventanaResultadosBusqueda los datos elegidos en la ventana anterior. Origen, destino, dia, mes, anio, precio(queremos sacar en la jtable aquellos vuelos con un precio entre el minimo y el maximo que hayamos introducido)
 					ResultadosBusquedaVuelos vp= new ResultadosBusquedaVuelos(comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(), calendarIda.getDayChooser().getDay(), String.valueOf(calendarIda.getMonthChooser().getMonth()+1), calendarIda.getYearChooser().getYear(),sliderPrecioMin.getValue(),sliderPrecioMax.getValue(),calendarVuelta.getDayChooser().getDay(), String.valueOf(calendarVuelta.getMonthChooser().getMonth()+1), calendarVuelta.getYearChooser().getYear());
+					Fecha = (calendarIda.getDayChooser().getDay())+"-"+String.valueOf(calendarIda.getMonthChooser().getMonth()+1)+"-"+calendarIda.getYearChooser().getYear()+" a "+calendarVuelta.getDayChooser().getDay()+"-"+String.valueOf(calendarVuelta.getMonthChooser().getMonth()+1)+"-"+calendarVuelta.getYearChooser().getYear();
 					BusquedaHoteles.setDestino(String.valueOf(comboBoxDestino.getSelectedItem()));
 					diaIda = calendarIda.getDayChooser().getDay();
 					mesIda = calendarIda.getMonthChooser().getMonth();

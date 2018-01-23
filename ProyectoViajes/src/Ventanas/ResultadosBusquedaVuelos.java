@@ -29,7 +29,10 @@ public class ResultadosBusquedaVuelos extends JFrame {
 	private JPanel contentPane;
 	private JTable tablaSurIda; 
 	private JTable tablaSurVuelta;
-
+	public static boolean hotel = false;
+	public static int preciovueloida;
+	public static int preciovuelovuelta;
+//	public static String VueloIdaVuelta;
 	
 	/**
 	 * Create the frame.
@@ -68,18 +71,22 @@ public class ResultadosBusquedaVuelos extends JFrame {
 					
 					int opcion = JOptionPane.showConfirmDialog(null, "¿Seguir sin seleccionar vuelo de vuelta?", "ALERTA", JOptionPane.YES_NO_OPTION);
 						if(opcion==JOptionPane.YES_OPTION){ 
+							preciovueloida=(int) tablaSurIda.getModel().getValueAt(tablaSurIda.getSelectedRow(), 3);
 							//le pregunto a ver si quiere comprar hotel
 							System.out.println("damos paso al hotel");
 							
 							
 							int opcion2 = JOptionPane.showConfirmDialog(null, "¿Desea reservar un hotel?","HOTEL", JOptionPane.YES_NO_OPTION);
 							if(opcion2==JOptionPane.YES_OPTION){
+								hotel = true;
 								BusquedaHoteles bh = new BusquedaHoteles();
 								bh.setVisible(true);
 								dispose();
+								
 							}
 							else{
-								GestionCompra gc= new GestionCompra();
+								hotel = false;
+								FinCompra gc= new FinCompra();
 								gc.setVisible(true);
 								dispose();
 							}
@@ -91,9 +98,12 @@ public class ResultadosBusquedaVuelos extends JFrame {
 							rv.setVisible(true);
 							dispose();
 						}
-				}else{//SI YA HA SELECCIONADO VUELO DE IDA Y DE VUELTA LE TIENE QUE DAR LA OPCION DE ELEGIR UN HOTEL O PASAR A LA COMPRA DEL VUELO
+				}else{//SI YA HA SELECCIONADO VUELO DE IDA Y DE VUELTA LE TIENE QUE DAR LA OPCION DE ELEGIR UN HOTEL O PASAR A LA COMPRA DEL VUELO. Si no deseamos comprar hotel
 					//{"ORIGEN","DESTINO","DURACION","PRECIO","HORA","DIA","MES","AÑO"};
+					preciovuelovuelta=(int) tablaSurVuelta.getModel().getValueAt(tablaSurVuelta.getSelectedRow(), 3);
 					System.out.println("Seleccionado vuelo ida y vuelo vuelta");
+//					VueloIdaVuelta= (String)(dia+"/"+mes+"-/"+anio+"-"+diaVuelta+"/"+mesVuelta+"/"+anioVuelta);
+//					System.out.println(VueloIdaVuelta);
 					numFilaIda = tablaSurIda.getSelectedRow();
 					numFilaVuelta = tablaSurVuelta.getSelectedRow();
 					TableModel modelo = tablaSurIda.getModel();
@@ -108,12 +118,14 @@ public class ResultadosBusquedaVuelos extends JFrame {
 					
 					int opcion2 = JOptionPane.showConfirmDialog(null, "¿Desea reservar un hotel?","HOTEL", JOptionPane.YES_NO_OPTION);
 					if(opcion2==JOptionPane.YES_OPTION){
+						hotel = true;
 						BusquedaHoteles bh = new BusquedaHoteles();
 						bh.setVisible(true);
 						dispose();
 					}
 					else{
-						GestionCompra gc= new GestionCompra();
+						hotel = false;
+						FinCompra gc= new FinCompra();
 						gc.setVisible(true);
 						dispose();
 					}
