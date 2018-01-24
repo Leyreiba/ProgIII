@@ -28,6 +28,7 @@ public class ResultadosBusquedaHoteles extends JFrame {
 	private JPanel panelCentro;
 	public static String nom;
 	public static int precio;
+	private JScrollPane sb;
 	//private int precio;
 	//private String lugar;
 	/**
@@ -45,7 +46,20 @@ public class ResultadosBusquedaHoteles extends JFrame {
 //			}
 //		});
 //	}
-
+ 
+	private void moverScrollRec(int valor) {
+		if(valor==sb.getVerticalScrollBar().getMaximum())
+			valor=0;
+		sb.getVerticalScrollBar().setValue(valor);
+		valor++;
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		moverScrollRec(valor);
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -107,8 +121,20 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		JTable tablaSur = new JTable(modelo); //metemos en una jtable el modelo con los arrays (titulo y celdas)
 		panelTabla.setLayout(new BorderLayout());
 		panelTabla.add(tablaSur.getTableHeader(), BorderLayout.NORTH); 
-		JScrollPane sb= new JScrollPane(tablaSur);
+		sb= new JScrollPane(tablaSur);
 		panelTabla.add(sb, BorderLayout.CENTER);
+		Runnable r = new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				int valor = sb.getVerticalScrollBar().getValue();
+				moverScrollRec(valor);
+				
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
 		
 		
 		

@@ -8,27 +8,18 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
 import Login.Login;
 
 public class FinCompra extends JFrame {
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FinCompra frame = new FinCompra();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -74,7 +65,7 @@ public class FinCompra extends JFrame {
 		panel_1.add(lblTotal);
 		
 		//sumamos el precio del hotel + el precio del vuelo de ida + el precio del vuelo de vuelta
-		JLabel lblPreciototal = new JLabel(ResultadosBusquedaHoteles.precio+ResultadosBusquedaVuelos.preciovueloida+ResultadosBusquedaVuelos.preciovuelovuelta);
+		JLabel lblPreciototal = new JLabel(String.valueOf(ResultadosBusquedaHoteles.precio+ResultadosBusquedaVuelos.preciovueloida+ResultadosBusquedaVuelos.preciovuelovuelta));
 		lblPreciototal.setBounds(59, 139, 102, 20);
 		panel_1.add(lblPreciototal);
 		
@@ -86,6 +77,30 @@ public class FinCompra extends JFrame {
 		JButton btnPagar = new JButton("Pagar");
 		btnPagar.setBounds(165, 0, 73, 29);
 		panel.add(btnPagar);
+		btnPagar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Date d = new Date(System.currentTimeMillis());
+				GregorianCalendar gc = new GregorianCalendar();
+				gc.setTime(d);
+				PrintWriter pw;
+				try {
+					pw = new PrintWriter("Compra "+Login.n+" "+gc.get(Calendar.YEAR)+(gc.get(Calendar.MONTH)+1)+gc.get(Calendar.DAY_OF_MONTH)+".txt");
+					pw.println("Compra con fecha: "+ d.toString());
+					pw.println("Hotel: "+ResultadosBusquedaHoteles.nom);
+					pw.println("Fecha de la reserva: "+BusquedaVuelos.Fecha);
+					pw.println("Precio total: "+String.valueOf(ResultadosBusquedaHoteles.precio+ResultadosBusquedaVuelos.preciovueloida+ResultadosBusquedaVuelos.preciovuelovuelta));
+					pw.flush();
+					pw.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		
 		JLabel lblNombreUsuario = new JLabel(Login.n);
 		lblNombreUsuario.setBounds(80, 29, 103, 20);

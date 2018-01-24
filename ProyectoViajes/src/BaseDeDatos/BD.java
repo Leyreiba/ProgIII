@@ -48,6 +48,7 @@ public class BD {
 	/**
 	 * Metodo que cierra una sentencia 
 	 */
+	
 	public static void cerrarSentencia()
 	{
 		try {

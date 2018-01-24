@@ -226,8 +226,29 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		panelTablaArriba.add(tablaSurIda, BorderLayout.CENTER);
 		JScrollBar sbIda= new JScrollBar();
 		tablaSurIda.add(sbIda);		
-		
-
+		Runnable r = new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				int valor = sbIda.getValue();
+				while(true) {
+					if(valor==sbIda.getMaximum())
+						valor=0;
+					sbIda.setValue(valor);
+					valor++;
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
 		//el origen en este caso va a ser el destino y viceversa, porque es la jtable de vuelta
        String nombrescolumnasVuelta[]= {"ORIGEN", "DESTINO", "DURACION", "PRECIO", "HORA", "DIA", "MES", "AÑO"};
        Object datosVuelta[][] = BD.volcarDatosVuelos(destino, origen, diaVuelta, mesVuelta, anioVuelta, precioMin, precioMax);
