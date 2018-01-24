@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import javax.swing.plaf.SliderUI;
 
 import Ventanas.BusquedaVuelos;
-
+/**
+ * Clase: Base de Datos
+ * @author Joseba Villanueva y Leyre Ibañez
+ *
+ */
 public class BD {
 		
 	private static Connection con;
@@ -28,8 +32,8 @@ public class BD {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		}
-		/**
+	}
+	/**
 	 * Metodo que permite conectarse a la base de datos
 	 */
 		public static void conectar()
@@ -71,10 +75,6 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
-	/*
-	public BD(){
-		conectar();
-	}*/
 	
 	/*A partir de aquí hacemos las consultas específicas de cada proyecto*/
 	
@@ -116,10 +116,13 @@ public class BD {
 			}
 			return resul;
 		}
-		
+		/**
+		 * 
+		 * @param n: String que guarda el nombre del usuario
+		 * @param c: String que guarda la cobtraseña del usuario
+		 */
 		public static void registrarUsuario(String n, String c){
 			String query= "INSERT INTO Usuario(nombre,contrasenia) VALUES('"+n+"','"+c+"')";
-			//No podemos REsultSet pq una INSERT no devuelve filas, solo inserta en la tabla
 			try {
 				stmt.executeUpdate(query);
 			} catch (SQLException e) {
@@ -127,7 +130,17 @@ public class BD {
 				e.printStackTrace();
 			};
 		}
-		
+		/**
+		 * 
+		 * @param origen: Origen del vuelo
+		 * @param destino: Destino del vuelo
+		 * @param dia: Dia en el que se desea realizar el vuelo
+		 * @param mes: Mes en el que se desea realizar el vuelo
+		 * @param anio: Año en el que se desea realizar el vuelo
+		 * @param precioMin: Precio minimo por el que se desea buscar el vuelo
+		 * @param precioMax: Precio maximo por el que se desea buscar el vuelo
+		 * @return: Devuelve el numero de vuelos que cumplen los requisitos de busqueda
+		 */
 		public static int contarVueltos(String origen, String destino, int dia, String mes, int anio, int precioMin , int precioMax){
 			String query = "SELECT COUNT(*) FROM vuelos WHERE origen='"+origen+"' AND destino='"+destino+"' AND dia="+dia+" AND mes='"+mes+"' AND año="+anio+" AND precio>="+precioMin +" AND precio<="+precioMax;
             int cont=0;
@@ -142,20 +155,25 @@ public class BD {
             return cont;
 		}
 		
+		/**
+		 * 
+		 * @param origen: Origen del vuelo
+		 * @param destino: Destino del vuelo
+		 * @param dia: Dia del vuelo
+		 * @param mes: Mes del vuelo
+		 * @param anio: Año del vuelo
+		 * @param precioMin: Precio minimo del vuelo
+		 * @param precioMax: Precio maximo del vuelo 
+		 * @return devuelve los datos del vuelo
+		 */
 		public static Object[][] volcarDatosVuelos(String origen, String destino, int dia, String mes, int anio, int precioMin , int precioMax) {
             //insertamos tantas filas como vuelos de la base de datos haya para volcar
 			int cont = contarVueltos(origen, destino, dia, mes, anio, precioMin, precioMax);
 			Object [][] datos =new Object[cont][8];
             int i=0;
             //cogemos mediante un select los vuelos disponibles respecto a los datos que hayamos elegido
-            //SELECT * FROM vuelos WHERE VentanaPrincipal.origen=opciones1.getOrigenSeleccionado AND VentanaPrincipal.destino=opciones2.getDestinoSeleccionado AND precio=precio.getValor AND dia,mes,año...
-            //System.out.println(origen+" "+destino+" "+dia+" "+mes+" "+anio+" "+precioMin+" "+precioMax);
             String query = "SELECT * FROM vuelos WHERE origen='"+origen+"' AND destino='"+destino+"' AND dia="+dia+" AND mes='"+mes+"' AND año="+anio+" AND precio>="+precioMin +" AND precio<="+precioMax;
-            //String query="SELECT * FROM vuelos";
-            //System.out.println("dia origen: "+dia+"mes origen: "+mes+"año origen: "+anio);
-
-           
-            
+                       
             try {
                             ResultSet rs = stmt.executeQuery(query);
                                 i=0;
@@ -184,13 +202,12 @@ public class BD {
 
 		}
 		
-		
-		
 		/**
 		 * Creamos este método para seleccionar de la base de datos los origenes y destinos que sean diferentes entre si
-		 * y no se repitan, ya que solo queremos que cada uno se nos muestre una vez(DISTINCT). Si la opción que le pasamos es "o",
-		 * se nos mostraran los origenes, si es "d" los destinos. (A este método le llamamos desde los ComBox de la ventana principal).
-		 * */
+		 * y no se repitan, ya que solo queremos que cada uno se nos muestre una vez(DISTINCT).
+		 * @param opcion: Si la opción que le pasamos es "o", se nos mostraran los origenes, si es "d" los destinos. (A este método le llamamos desde los ComBox de la ventana principal).
+		 * @return 
+		 */
 		public static String[] obtenerOrigenDestino(char opcion){
 			String query; 
 			ArrayList<String> datos = new ArrayList<String>(); 
@@ -221,7 +238,13 @@ public class BD {
 			return opciones;
 		}
 		
-		
+		/**
+		 * 
+		 * @param precioMin: Precio minimo del hotel
+		 * @param precioMax: Precio maximo hotel
+		 * @param lugar: Localizacion del hotel
+		 * @return: Numero de hoteles
+		 */
 		public static int contarHoteles(int precioMin , int precioMax, String lugar){
 			String query = "SELECT COUNT(*) FROM hoteles WHERE precio>='"+precioMin +"' AND precio<='"+precioMax+"' AND Lugar='"+lugar+"'";
             int cont=0;
@@ -236,16 +259,19 @@ public class BD {
             return cont;
 		}
 		
-		
+		/**
+		 * 
+		 * @param precioMin: Precio minimo seleccionado
+		 * @param precioMax: Precio maximo seleccionado
+		 * @param lugar: Lugar seleccionado
+		 * @return
+		 */
 		public static Object[][] volcarDatosHoteles(int precioMin , int precioMax, String lugar) {
             int cont = contarHoteles(precioMin, precioMax, lugar);
 			Object [][] datos =new Object[cont][5];
             int i=0;
             //cogemos mediante un select los vuelos disponibles respecto a los datos que hayamos elegido
-            //SELECT * FROM vuelos WHERE VentanaPrincipal.origen=opciones1.getOrigenSeleccionado AND VentanaPrincipal.destino=opciones2.getDestinoSeleccionado AND precio=precio.getValor AND dia,mes,año...
-            String query = "SELECT * FROM hoteles WHERE precio>='"+precioMin+"' AND precio<='"+precioMax+"' AND lugar='"+lugar+"'";
-            //System.out.println("dia origen: "+dia+"mes origen: "+mes+"año origen: "+anio);
-
+             String query = "SELECT * FROM hoteles WHERE precio>='"+precioMin+"' AND precio<='"+precioMax+"' AND lugar='"+lugar+"'";
             try {
                             ResultSet rs = stmt.executeQuery(query);
                             int j=0;
@@ -264,10 +290,6 @@ public class BD {
             return datos;
 
 		}
-		
-	
-		
-		
 }
 
 

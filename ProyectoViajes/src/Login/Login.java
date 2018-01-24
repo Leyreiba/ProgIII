@@ -36,7 +36,6 @@ public class Login extends JFrame {
 	private JTextField textNombre;
 	public static String n;
 	private JPasswordField textContrasenia;
-	//public static BD bd;
 
 	/**
 	 * Launch the application.
@@ -60,16 +59,10 @@ public class Login extends JFrame {
 	}
 	
 	/**
-	 * Create the frame.
+	 * Creamos la ventana
 	 */
 	public Login() {
 		this.setTitle("Login");
-		/**
-		 * Creamos un objeto BD. Mediante el Handler sabemos a qué fichero se mandarán los logs.
-		 * Al log le ponemos un formato normal y se lo actualizamos en el Handler. 
-		 * Por ultimo creamos el log y le añadimos el Handler
-		 */
-		//bd= new BD();
 		BD.conectar();
 		Handler fileHandler = null;
 		try {
@@ -142,7 +135,9 @@ public class Login extends JFrame {
 		chckbxCondiciones.setFont(new Font("Sitka Text", Font.PLAIN, 10));
 		chckbxCondiciones.setBounds(39, 156, 298, 23);
 		panelCentro.add(chckbxCondiciones);
-		
+		/**
+		 * Boton para acceder a la siguiente ventana
+		 */
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setBounds(248, 197, 89, 23);
 		panelCentro.add(btnAceptar);
@@ -169,7 +164,6 @@ public class Login extends JFrame {
 					/**
 					 * llamamos al método existeusuario() de la clase BD y a registrar usuario
 					 * */
-					
 					int existe= BD.existeUsuario(n, c);
 					if(existe==0){
 						String e= JOptionPane.showInputDialog("¿Quiere registrarse? (S/N) ");
@@ -177,7 +171,6 @@ public class Login extends JFrame {
 							BD.registrarUsuario(n, c);
 							JOptionPane.showMessageDialog(null, "REGISTRO COMPLETADO","CORRECTO", JOptionPane.INFORMATION_MESSAGE);
 							vaciar();
-							
 						}
 						else{
 							JOptionPane.showMessageDialog(null, "Vaya...Vuelve pronto");

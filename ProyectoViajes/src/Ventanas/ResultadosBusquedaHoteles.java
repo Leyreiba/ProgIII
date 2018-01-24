@@ -29,24 +29,11 @@ public class ResultadosBusquedaHoteles extends JFrame {
 	public static String nom;
 	public static int precio;
 	private JScrollPane sb;
-	//private int precio;
-	//private String lugar;
+
 	/**
-	 * Launch the application.
+	 * Metodo recursivo que hace que el scroll se mueva hacia abajo
+	 * @param valor: El valor que tiene el Scroll y que va incrementando
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ResultadosBusquedaHoteles frame = new ResultadosBusquedaHoteles();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
- 
 	private void moverScrollRec(int valor) {
 		if(valor==sb.getVerticalScrollBar().getMaximum())
 			valor=0;
@@ -61,7 +48,20 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		moverScrollRec(valor);
 	}
 	/**
-	 * Create the frame.
+	 * Creamos la ventana
+	 */
+	/**
+	 * Recive todos estos datos
+	 * @param precioMin: Precio minimo
+	 * @param precioMax: Precio maximo
+	 * @param diaVuelta: Dia de vuelta
+	 * @param mesVuelta: Mes de vuelta
+	 * @param anioVuelta: Año de vuelta
+	 * @param diaIda: Dia de ida
+	 * @param mesIda: Mes de ida
+	 * @param anioIda: Año de ida
+	 * @param numHuespedes: Numero de huspedes que desean quedarse en el hotel
+	 * @param destino: Destino al que va el vuelo que sera la localizacion de el hotel
 	 */
 	public ResultadosBusquedaHoteles(int precioMin, int precioMax, int diaVuelta, String mesVuelta, int anioVuelta, int diaIda, String mesIda, int anioIda, int numHuespedes, String destino) {
 		this.setTitle("Resultado búsqueda hoteles");
@@ -117,12 +117,15 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		DefaultTableModel modelo = new DefaultTableModel(datos,nombresColumnas){
 				    public boolean isCellEditable(int rowIndex,int columnIndex){return false;}
 		};
-		
-		JTable tablaSur = new JTable(modelo); //metemos en una jtable el modelo con los arrays (titulo y celdas)
+		//metemos en una jtable el modelo con los arrays (titulo y celdas)
+		JTable tablaSur = new JTable(modelo); 
 		panelTabla.setLayout(new BorderLayout());
 		panelTabla.add(tablaSur.getTableHeader(), BorderLayout.NORTH); 
 		sb= new JScrollPane(tablaSur);
 		panelTabla.add(sb, BorderLayout.CENTER);
+		/**
+		 * Thread que creamos para que el scrollbar se mueva
+		 */
 		Runnable r = new Runnable() {
 			
 			@Override
@@ -136,8 +139,6 @@ public class ResultadosBusquedaHoteles extends JFrame {
 		Thread t = new Thread(r);
 		t.start();
 		
-		
-		
 		JButton btnComprar = new JButton("Comprar");
 		panelSur.add(btnComprar);
 		btnComprar.addActionListener(new ActionListener() {
@@ -145,7 +146,7 @@ public class ResultadosBusquedaHoteles extends JFrame {
 				if(tablaSur.getSelectedRow()!=-1){
 					//selecciono el nombre y el precio del hotel que hemos seleccionado para luego mostrar esta información en la ventana FinCompra
 					nom = (String)tablaSur.getModel().getValueAt(tablaSur.getSelectedRow(), 2);
-					precio= (int) tablaSur.getModel().getValueAt(tablaSur.getSelectedRow(), 0);
+					precio= ((int) tablaSur.getModel().getValueAt(tablaSur.getSelectedRow(), 0))*numHuespedes;
 					//quiero pasarle el nombre de usuario con el que se ha registrado, los datos del vuelos, el nombre del hotel, el precio del vuelo y el precio del hotel
 					FinCompra vp= new FinCompra();
 					vp.setVisible(true);

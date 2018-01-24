@@ -19,10 +19,9 @@ import Login.Login;
 
 public class FinCompra extends JFrame {
 	private JPanel contentPane;
-
-
+	
 	/**
-	 * Create the frame.
+	 * Creamos la ventana
 	 */
 	public FinCompra() {
 		this.setTitle("Fin compra");
@@ -53,9 +52,10 @@ public class FinCompra extends JFrame {
 			JLabel lblHotel = new JLabel("Hotel:");
 			lblHotel.setBounds(15, 101, 69, 20);
 			panel_1.add(lblHotel);
-			
 		}
-		
+		/**
+		 * Cogemos el nombre del Hotel
+		 */
 		JLabel lblDatosHotel = new JLabel(ResultadosBusquedaHoteles.nom);
 		lblDatosHotel.setBounds(81, 101, 177, 20);
 		panel_1.add(lblDatosHotel);
@@ -64,7 +64,9 @@ public class FinCompra extends JFrame {
 		lblTotal.setBounds(15, 139, 69, 20);
 		panel_1.add(lblTotal);
 		
-		//sumamos el precio del hotel + el precio del vuelo de ida + el precio del vuelo de vuelta
+		/*
+		 * Sumamos el precio del hotel + el precio del vuelo de ida + el precio del vuelo de vuelta
+		 */
 		JLabel lblPreciototal = new JLabel(String.valueOf(ResultadosBusquedaHoteles.precio+ResultadosBusquedaVuelos.preciovueloida+ResultadosBusquedaVuelos.preciovuelovuelta));
 		lblPreciototal.setBounds(81, 139, 102, 20);
 		panel_1.add(lblPreciototal);
@@ -74,6 +76,9 @@ public class FinCompra extends JFrame {
 		panel_1.add(panel);
 		panel.setLayout(null);
 		
+		/**
+		 * Boton que crea un documento de texto con algunos de los datos que hemos ido seleccionando
+		 */
 		JButton btnPagar = new JButton("Pagar");
 		btnPagar.setBounds(165, 0, 73, 29);
 		panel.add(btnPagar);
@@ -85,6 +90,7 @@ public class FinCompra extends JFrame {
 				Date d = new Date(System.currentTimeMillis());
 				GregorianCalendar gc = new GregorianCalendar();
 				gc.setTime(d);
+				//Creamos el documento
 				PrintWriter pw;
 				try {
 					pw = new PrintWriter("Compra "+Login.n+" "+gc.get(Calendar.YEAR)+(gc.get(Calendar.MONTH)+1)+gc.get(Calendar.DAY_OF_MONTH)+".txt");
@@ -98,8 +104,6 @@ public class FinCompra extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				
 			}
 		});
 		

@@ -32,10 +32,22 @@ public class ResultadosBusquedaVuelos extends JFrame {
 	public static boolean hotel = false;
 	public static int preciovueloida;
 	public static int preciovuelovuelta;
-//	public static String VueloIdaVuelta;
 	
 	/**
-	 * Create the frame.
+	 * Creamos la ventana
+	 */
+	/**
+	 * 
+	 * @param origen: Origen del vuelo
+	 * @param destino: Destino del vuelo
+	 * @param dia: Dia de entrada al hotel
+	 * @param mes: Mes de entrad al hotel
+	 * @param anio: Año de entrada al hotel
+	 * @param precioMin: Precio minimo por huesped
+	 * @param precioMax: Precio maximo por huespeded
+	 * @param diaVuelta: Dia de vuelta
+	 * @param mesVuelta: Mes de vuelta
+	 * @param anioVuelta: año de vuelta
 	 */
 	public ResultadosBusquedaVuelos(String origen, String destino, int dia, String mes, int anio, int precioMin, int precioMax, int diaVuelta, String mesVuelta, int anioVuelta) {
 		this.setTitle("Resultados búsqueda vuelos");
@@ -71,9 +83,8 @@ public class ResultadosBusquedaVuelos extends JFrame {
 					
 					int opcion = JOptionPane.showConfirmDialog(null, "¿Seguir sin seleccionar vuelo de vuelta?", "ALERTA", JOptionPane.YES_NO_OPTION);
 						if(opcion==JOptionPane.YES_OPTION){ 
-							preciovueloida=(int) tablaSurIda.getModel().getValueAt(tablaSurIda.getSelectedRow(), 3);
 							//le pregunto a ver si quiere comprar hotel
-							System.out.println("damos paso al hotel");
+							preciovueloida=(int) tablaSurIda.getModel().getValueAt(tablaSurIda.getSelectedRow(), 3);
 							
 							
 							int opcion2 = JOptionPane.showConfirmDialog(null, "¿Desea reservar un hotel?","HOTEL", JOptionPane.YES_NO_OPTION);
@@ -82,7 +93,6 @@ public class ResultadosBusquedaVuelos extends JFrame {
 								BusquedaHoteles bh = new BusquedaHoteles();
 								bh.setVisible(true);
 								dispose();
-								
 							}
 							else{
 								hotel = false;
@@ -90,20 +100,15 @@ public class ResultadosBusquedaVuelos extends JFrame {
 								gc.setVisible(true);
 								dispose();
 							}
-							
 						}
-						else{//NO ENTRA A ESTE ELSE. SIEMPRE ENTRA EN EL "SI"
-							
+						else{
 							ResultadosBusquedaVuelos rv= new ResultadosBusquedaVuelos(origen, destino, dia, mes, anio, precioMin, precioMax, diaVuelta, mesVuelta, anioVuelta);
 							rv.setVisible(true);
 							dispose();
 						}
-				}else{//SI YA HA SELECCIONADO VUELO DE IDA Y DE VUELTA LE TIENE QUE DAR LA OPCION DE ELEGIR UN HOTEL O PASAR A LA COMPRA DEL VUELO. Si no deseamos comprar hotel
-					//{"ORIGEN","DESTINO","DURACION","PRECIO","HORA","DIA","MES","AÑO"};
+				}else{
 					preciovuelovuelta=(int) tablaSurVuelta.getModel().getValueAt(tablaSurVuelta.getSelectedRow(), 3);
-					System.out.println("Seleccionado vuelo ida y vuelo vuelta");
-//					VueloIdaVuelta= (String)(dia+"/"+mes+"-/"+anio+"-"+diaVuelta+"/"+mesVuelta+"/"+anioVuelta);
-//					System.out.println(VueloIdaVuelta);
+					preciovueloida=(int) tablaSurIda.getModel().getValueAt(tablaSurIda.getSelectedRow(), 3);
 					numFilaIda = tablaSurIda.getSelectedRow();
 					numFilaVuelta = tablaSurVuelta.getSelectedRow();
 					TableModel modelo = tablaSurIda.getModel();
@@ -130,9 +135,6 @@ public class ResultadosBusquedaVuelos extends JFrame {
 						dispose();
 					}
 				}
-//				GestionCompra vp= new GestionCompra();
-//				vp.setVisible(true);
-//				dispose();
 			}
 		});
 		btnBuscarOtro.addActionListener(new ActionListener() {
@@ -226,6 +228,9 @@ public class ResultadosBusquedaVuelos extends JFrame {
 		panelTablaArriba.add(tablaSurIda, BorderLayout.CENTER);
 		JScrollBar sbIda= new JScrollBar();
 		tablaSurIda.add(sbIda);		
+		/*
+		 * hread que controla el ScrollBar
+		 */
 		Runnable r = new Runnable() {
 			
 			@Override

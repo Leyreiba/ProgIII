@@ -78,6 +78,10 @@ public class BusquedaHoteles extends JFrame {
 		labelPrecioMax.setBounds(23, 226, 68, 39);
 		panel.add(labelPrecioMax);
 		
+		/*
+		 *Label que va mostrando el valor del slider 
+		 */
+		
 		JLabel precioMax = new JLabel(" ");
 		precioMax.setBounds(98, 235, 31, 20);
 		panel.add(precioMax);
@@ -157,10 +161,6 @@ public class BusquedaHoteles extends JFrame {
 				}
 			}
 		});
-		
-		
-		
-		
 		
 	}
 	

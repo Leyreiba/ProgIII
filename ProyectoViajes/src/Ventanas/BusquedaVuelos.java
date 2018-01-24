@@ -33,25 +33,8 @@ public class BusquedaVuelos extends JFrame {
 	public static int diaIda, mesIda, anioIda, diaVuelta, mesVuelta, anioVuelta;
 	public static String Fecha;
 
-
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BusquedaVuelos frame = new BusquedaVuelos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
+	 * Creamos la ventana
 	 */
 	public BusquedaVuelos() {
 		this.setTitle("Búsqueda vuelos");
@@ -123,7 +106,6 @@ public class BusquedaVuelos extends JFrame {
 				int v = sliderPrecioMax.getValue();
 				String s = String.valueOf(v);
 				lblPrecioScrollMax.setText(s);
-				
 			}
 		});
 		sliderPrecioMax.setPaintLabels(true);
@@ -133,17 +115,12 @@ public class BusquedaVuelos extends JFrame {
 		sliderPrecioMax.setBounds(127, 229, 226, 53);
 		panel.add(sliderPrecioMax);
 		
-		
-		
-		
-		//String[] opciones1= {"origen1","origen2","origen3","origen4"};
-		//volcar de la base de datos todos los origenes que sean distintos. Para ello llamamos al metodo ya implementado en la clase BD
+		//Volcar de la base de datos todos los origenes que sean distintos. Para ello llamamos al metodo ya implementado en la clase BD
 		String[] opciones1 = BD.obtenerOrigenDestino('o');
 		JComboBox<String> comboBoxOrigen = new JComboBox<String>(opciones1);
 		comboBoxOrigen.setBounds(75, 13, 87, 20);
 		panel.add(comboBoxOrigen);
 		
-		//String[] opciones2= {"destino1","destino2","destino3","destino4"};
 		//Llamamos al metodo ya implementado en la clase BD para volcar los destinos que podemos seleccionar
 		String[] opciones2 = BD.obtenerOrigenDestino('d');
 		JComboBox<String> comboBoxDestino = new JComboBox<String>(opciones2);
@@ -179,7 +156,6 @@ public class BusquedaVuelos extends JFrame {
 					anioVuelta = calendarVuelta.getYearChooser().getYear();
 					vp.setVisible(true);
 					dispose();
-					
 				}
 			}
 		});
@@ -195,12 +171,7 @@ public class BusquedaVuelos extends JFrame {
 		calendarVuelta = new JCalendar();
 		calendarVuelta.setBounds(223, 69, 191, 106);
 		panel.add(calendarVuelta);
-		
-		
+	
 	}
-	
-
-	
-
 	
 }
