@@ -66,7 +66,7 @@ public class FinCompra extends JFrame {
 		
 		//sumamos el precio del hotel + el precio del vuelo de ida + el precio del vuelo de vuelta
 		JLabel lblPreciototal = new JLabel(String.valueOf(ResultadosBusquedaHoteles.precio+ResultadosBusquedaVuelos.preciovueloida+ResultadosBusquedaVuelos.preciovuelovuelta));
-		lblPreciototal.setBounds(59, 139, 102, 20);
+		lblPreciototal.setBounds(81, 139, 102, 20);
 		panel_1.add(lblPreciototal);
 		
 		JPanel panel = new JPanel();
@@ -98,6 +98,7 @@ public class FinCompra extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
 				
 			}
 		});
